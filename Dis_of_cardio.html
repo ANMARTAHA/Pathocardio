@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Cardiovascular System</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root{
+  --ink:#EAEFEA;
+  --ink-dim:#9FB0AA;
+  --paper:#0B1210;
+  --paper-raised:#101A17;
+  --line:#24342E;
+  --artery:#C6483E;
+  --artery-dim:#7A302B;
+  --vein:#2E8B72;
+  --vein-dim:#1E5A49;
+  --amber:#D9A441;
+  --focus:#5FC9A8;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Source Serif 4',serif;
+  font-weight:600;
+  margin:0;
+}
+a{color:inherit;}
+::selection{background:var(--artery);color:#fff;}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  padding:52px 6vw 34px;
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+}
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+.hero-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:var(--vein);
+  margin-bottom:10px;
+}
+.hero h1{
+  font-size:clamp(34px,6vw,64px);
+  color:var(--ink);
+  line-height:1.02;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--artery);
+}
+.hero p.sub{
+  max-width:46ch;
+  color:var(--ink-dim);
+  font-size:15.5px;
+  margin-top:14px;
+}
+.pulse-wrap{
+  width:min(38vw,420px);
+  height:78px;
+  flex-shrink:0;
+}
+.pulse-wrap svg{width:100%;height:100%;display:block;}
+.pulse-line{
+  fill:none;
+  stroke:var(--artery);
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:900;
+  stroke-dashoffset:900;
+  animation:draw 3.4s ease-in-out infinite;
+}
+@keyframes draw{
+  0%{stroke-dashoffset:900;}
+  55%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:-900;}
+}
+@media (prefers-reduced-motion: reduce){
+  .pulse-line{animation:none;stroke-dashoffset:0;}
+}
+
+/* ---------- TABS ---------- */
+.tabbar{
+  display:flex;
+  gap:2px;
+  padding:0 6vw;
+  background:var(--paper-raised);
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabbar::-webkit-scrollbar{display:none;}
+.tab-btn{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:var(--ink-dim);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  letter-spacing:.04em;
+  padding:16px 18px;
+  cursor:pointer;
+  white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:color .15s ease, border-color .15s ease;
+}
+.tab-btn .num{color:var(--vein);margin-right:8px;}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{
+  color:var(--ink);
+  border-bottom-color:var(--artery);
+}
+
+main{
+  padding:44px 6vw 90px;
+  max-width:1180px;
+  margin:0 auto;
+}
+.panel{display:none;}
+.panel.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.panel-head{
+  margin-bottom:30px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.panel-head h2{font-size:clamp(24px,3.4vw,34px);}
+.panel-head p{color:var(--ink-dim);font-size:14.5px;margin-top:8px;max-width:60ch;}
+
+/* ---------- OVERVIEW ---------- */
+.ov-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.ov-card{
+  background:var(--paper);
+  padding:22px 24px 24px;
+}
+.ov-card h3{
+  font-size:17px;
+  color:var(--ink);
+  border-left:3px solid var(--artery);
+  padding-left:10px;
+  margin-bottom:14px;
+}
+.ov-card ul{margin:0;padding-left:18px;}
+.ov-card li{font-size:13.8px;color:var(--ink-dim);margin-bottom:7px;}
+.ov-card li b, .ov-card li strong{color:var(--ink);font-weight:600;}
+.ov-card li::marker{color:var(--vein);}
+
+/* ---------- DIAGRAMS ---------- */
+.diagram-block{
+  border:1px solid var(--line);
+  margin-bottom:28px;
+  background:var(--paper-raised);
+}
+.diagram-block .dblock-head{
+  padding:16px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.diagram-block h3{font-size:16.5px;}
+.diagram-block .hint{font-size:11.5px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;}
+.diagram-body{padding:22px 20px 26px;}
+
+/* flow diagram */
+.flow-toggle{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.flow-toggle button{
+  appearance:none;cursor:pointer;
+  border:1px solid var(--line);
+  background:var(--paper);
+  color:var(--ink-dim);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  padding:9px 14px;
+}
+.flow-toggle button.active{
+  color:var(--paper);
+  background:var(--focus);
+  border-color:var(--focus);
+}
+.vessel-svg{width:100%;max-width:640px;display:block;margin:0 auto;}
+.vessel-desc{
+  margin-top:16px;font-size:14px;color:var(--ink-dim);
+  border-left:3px solid var(--vein);padding-left:14px;min-height:44px;
+}
+.vessel-desc b{color:var(--ink);}
+
+/* triad */
+.triad-wrap{display:flex;gap:30px;flex-wrap:wrap;align-items:center;justify-content:center;}
+.triad-svg{width:min(100%,340px);flex-shrink:0;}
+.triad-node{cursor:pointer;}
+.triad-node rect, .triad-node circle{transition:fill .18s ease, stroke .18s ease;}
+.triad-node text{fill:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:12px;pointer-events:none;}
+.triad-detail{
+  flex:1;min-width:260px;
+  border-left:3px solid var(--artery);
+  padding-left:16px;
+  font-size:14px;color:var(--ink-dim);
+}
+.triad-detail h4{color:var(--ink);font-size:16px;margin-bottom:8px;}
+
+/* edema quadrant */
+.quad-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  margin-bottom:18px;
+}
+.quad-card{
+  background:var(--paper);
+  padding:16px 16px 18px;
+  cursor:pointer;
+  border-left:3px solid transparent;
+  transition:border-color .15s ease, background .15s ease;
+}
+.quad-card:hover{background:var(--paper-raised);}
+.quad-card.active{border-left-color:var(--artery);background:var(--paper-raised);}
+.quad-card .qnum{font-family:'IBM Plex Mono',monospace;color:var(--vein);font-size:11px;}
+.quad-card h4{font-size:14.5px;margin:6px 0 0;}
+.quad-detail{
+  border:1px solid var(--line);
+  padding:16px 18px;
+  font-size:14px;color:var(--ink-dim);
+  min-height:60px;
+}
+.quad-detail b{color:var(--ink);}
+
+/* thrombus fate */
+.fate-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;}
+.fate-step{
+  flex:1;min-width:150px;
+  border:1px solid var(--line);
+  padding:14px 14px 16px;
+  cursor:pointer;
+  text-align:left;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',sans-serif;
+}
+.fate-step .fnum{font-family:'IBM Plex Mono',monospace;color:var(--artery);font-size:12px;}
+.fate-step h4{font-size:14px;margin:6px 0 0;}
+.fate-step.active{background:var(--paper-raised);border-color:var(--vein);}
+.fate-arrow{align-self:center;color:var(--ink-dim);font-size:18px;}
+.fate-detail{border-left:3px solid var(--vein);padding-left:14px;font-size:14px;color:var(--ink-dim);min-height:40px;}
+.fate-detail b{color:var(--ink);}
+
+/* infarct compare */
+.infarct-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.infarct-tabs button{
+  appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink-dim);font-size:13px;padding:8px 16px;font-family:'IBM Plex Sans',sans-serif;
+}
+.infarct-tabs button.active{background:var(--artery);border-color:var(--artery);color:#fff;}
+.infarct-table{width:100%;border-collapse:collapse;font-size:13.6px;}
+.infarct-table td{border:1px solid var(--line);padding:11px 14px;vertical-align:top;}
+.infarct-table td.label{color:var(--vein);font-family:'IBM Plex Mono',monospace;font-size:11.5px;width:150px;}
+.infarct-table td.val{color:var(--ink);}
+
+/* MI checklist */
+.mi-flow{display:flex;flex-direction:column;gap:10px;}
+.mi-req{
+  border:1px solid var(--vein);
+  padding:12px 16px;
+  font-size:14px;
+  color:var(--ink);
+  background:rgba(46,139,114,0.08);
+}
+.mi-plus{text-align:center;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;}
+.mi-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);}
+.mi-opt{background:var(--paper);padding:14px 16px;font-size:13.5px;color:var(--ink-dim);cursor:pointer;}
+.mi-opt.checked{background:var(--paper-raised);color:var(--ink);}
+.mi-opt .box{display:inline-block;width:12px;height:12px;border:1px solid var(--amber);margin-right:8px;position:relative;top:1px;}
+.mi-opt.checked .box{background:var(--amber);}
+
+/* ---------- MINI MAP ---------- */
+.map-layout{display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--line);min-height:480px;}
+@media(max-width:760px){.map-layout{grid-template-columns:1fr;}}
+.map-index{border-right:1px solid var(--line);}
+@media(max-width:760px){.map-index{border-right:none;border-bottom:1px solid var(--line);}}
+.map-item{
+  display:block;width:100%;text-align:left;
+  appearance:none;border:none;border-bottom:1px solid var(--line);
+  background:var(--paper);color:var(--ink-dim);
+  padding:15px 18px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:14px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.map-item .dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0;margin-left:8px;}
+.map-item:hover{background:var(--paper-raised);color:var(--ink);}
+.map-item.active{background:var(--paper-raised);color:var(--ink);border-left:3px solid var(--artery);padding-left:15px;}
+.map-item.active .dot{background:var(--artery);}
+.map-display{padding:30px 34px;background:var(--paper);}
+.map-display h3{font-size:20px;margin-bottom:16px;color:var(--ink);}
+.map-display .body-text{font-size:14.5px;color:var(--ink-dim);}
+.map-display .body-text p{margin:0 0 12px;}
+.map-display .body-text ul{padding-left:20px;margin:0 0 12px;}
+.map-display .body-text li{margin-bottom:6px;}
+.map-display .body-text b{color:var(--ink);}
+.map-empty{color:var(--ink-dim);font-size:14px;font-style:italic;}
+
+/* ---------- LEVEL TABS (shared: flashcards + quiz) ---------- */
+.level-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
+.level-tabs button{
+  appearance:none;cursor:pointer;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink-dim);font-size:12.5px;padding:9px 16px;font-family:'IBM Plex Mono',monospace;
+  letter-spacing:.03em;display:flex;align-items:center;gap:8px;
+}
+.level-tabs button .lvl-count{color:var(--vein);font-size:11px;}
+.level-tabs button:hover{border-color:var(--focus);color:var(--ink);}
+.level-tabs button.active{background:var(--artery);border-color:var(--artery);color:#fff;}
+.level-tabs button.active .lvl-count{color:#ffe;}
+
+/* ---------- FLASHCARDS ---------- */
+.fc-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.fc-count{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--vein);}
+.fc-controls{display:flex;gap:8px;}
+.fc-controls button{
+  appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  padding:9px 16px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:13px;
+}
+.fc-controls button:hover{border-color:var(--focus);}
+.fc-stage{perspective:1600px;max-width:640px;margin:0 auto;}
+.fc-card{
+  position:relative;height:270px;cursor:pointer;
+}
+.fc-inner{
+  position:relative;width:100%;height:100%;
+  transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border:1px solid var(--line);
+  padding:28px 30px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--paper-raised);
+}
+.fc-face .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--vein);margin-bottom:14px;letter-spacing:.06em;}
+.fc-face p{font-size:18px;color:var(--ink);margin:0;font-family:'Source Serif 4',serif;line-height:1.4;}
+.fc-back{transform:rotateY(180deg);background:var(--paper);border-color:var(--vein);}
+.fc-back p{font-size:15.5px;color:var(--ink-dim);font-family:'IBM Plex Sans',sans-serif;}
+.fc-back p b{color:var(--ink);}
+.fc-hint{text-align:center;color:var(--ink-dim);font-size:12px;margin-top:14px;font-family:'IBM Plex Mono',monospace;}
+.fc-nav{display:flex;justify-content:center;gap:10px;margin-top:20px;}
+.fc-nav button{
+  appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  padding:10px 22px;cursor:pointer;font-size:13px;
+}
+.fc-nav button:hover{border-color:var(--artery);}
+
+/* ---------- QUIZ ---------- */
+.quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.quiz-score{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--vein);}
+.quiz-progress{height:3px;background:var(--line);margin-bottom:26px;}
+.quiz-progress-bar{height:100%;background:var(--artery);width:0%;transition:width .3s ease;}
+.quiz-box{border:1px solid var(--line);background:var(--paper-raised);padding:28px 30px;max-width:720px;margin:0 auto;}
+.quiz-qnum{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--vein);margin-bottom:10px;}
+.quiz-q{font-family:'Source Serif 4',serif;font-size:19px;color:var(--ink);margin-bottom:22px;line-height:1.4;}
+.quiz-opts{display:flex;flex-direction:column;gap:10px;}
+.quiz-opt{
+  text-align:left;appearance:none;cursor:pointer;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  padding:13px 16px;font-size:14.5px;font-family:'IBM Plex Sans',sans-serif;
+}
+.quiz-opt:hover:not([disabled]){border-color:var(--focus);}
+.quiz-opt.correct{border-color:var(--vein);background:rgba(46,139,114,0.15);}
+.quiz-opt.wrong{border-color:var(--artery);background:rgba(198,72,62,0.15);}
+.quiz-opt[disabled]{cursor:default;}
+.quiz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+.quiz-next{
+  appearance:none;border:1px solid var(--vein);background:var(--vein);color:#08120F;
+  padding:10px 22px;cursor:pointer;font-size:13.5px;font-weight:600;
+}
+.quiz-next:disabled{opacity:.35;cursor:default;background:var(--paper);color:var(--ink-dim);border-color:var(--line);}
+.quiz-feedback{font-size:13px;font-family:'IBM Plex Mono',monospace;min-height:16px;}
+.quiz-feedback.ok{color:var(--vein);}
+.quiz-feedback.bad{color:var(--artery);}
+.quiz-summary{text-align:center;padding:50px 20px;}
+.quiz-summary .big{font-family:'Source Serif 4',serif;font-size:52px;color:var(--ink);}
+.quiz-summary p{color:var(--ink-dim);margin-top:10px;}
+.quiz-restart{
+  margin-top:22px;appearance:none;border:1px solid var(--artery);background:transparent;color:var(--ink);
+  padding:11px 26px;cursor:pointer;font-size:13.5px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:26px 6vw;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  color:var(--ink-dim);font-size:12.5px;font-family:'IBM Plex Mono',monospace;
+}
+footer span.mark{color:var(--vein);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-kicker">CARDIOVASCULAR PATHOPHYSIOLOGY // REVISION TOOL</div>
+      <h1>Study <em>Smart</em></h1>
+      <p class="sub">Hyperemia, congestion, oedema, thrombosis, embolism, infarction, coronary heart disease and pulmonary oedema — condensed, diagrammed, and drilled.</p>
+    </div>
+    <div class="pulse-wrap">
+      <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+        <path class="pulse-line" d="M0,40 L60,40 L80,40 L92,10 L108,70 L122,20 L134,40 L160,40 L172,40 L186,15 L200,65 L214,25 L226,40 L400,40" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="tabbar" role="tablist">
+  <button class="tab-btn active" data-tab="overview"><span class="num">01</span>Overview</button>
+  <button class="tab-btn" data-tab="diagrams"><span class="num">02</span>Diagrams</button>
+  <button class="tab-btn" data-tab="minimap"><span class="num">03</span>Mini Map</button>
+  <button class="tab-btn" data-tab="flashcards"><span class="num">04</span>Flashcards</button>
+  <button class="tab-btn" data-tab="quiz"><span class="num">05</span>Quiz Bank</button>
+</div>
+
+<main>
+
+  <!-- ================= 01 OVERVIEW ================= -->
+  <section class="panel active" id="overview">
+    <div class="panel-head">
+      <h2>Overview</h2>
+      <p>The rules and figures worth remembering — not the whole lecture.</p>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-card">
+        <h3>Homeostasis &amp; fluid</h3>
+        <ul>
+          <li>Total body water ≈ <b>60%</b> of body weight.</li>
+          <li>Intracellular fluid = <b>33%</b>; extracellular fluid = <b>27%</b>.</li>
+          <li>ICF: low Na⁺/Cl⁻. ECF: high Na⁺, Cl⁻, HCO₃⁻.</li>
+          <li>Plasma has more protein than interstitial fluid.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Hyperemia vs congestion</h3>
+        <ul>
+          <li><b>Active hyperemia</b> = ↑ arterial inflow (arteriolar dilation).</li>
+          <li><b>Passive hyperemia / congestion</b> = ↓ venous outflow.</li>
+          <li>Causes of active hyperemia: neurogenic, fever, inflammation, blushing, menopausal flush, exercise, goiter, AV malformation.</li>
+          <li>Congestion → ↓O₂, ↑metabolic waste, cyanosis (deoxy-Hb).</li>
+          <li>Local congestion e.g. portal obstruction in cirrhosis; systemic e.g. heart failure, lung disease.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Oedema — 6 mechanisms</h3>
+        <ul>
+          <li>1. ↑ Hydrostatic pressure (local: DVT; generalized: CHF).</li>
+          <li>2. ↓ Plasma oncotic pressure (albumin loss — nephrotic syndrome).</li>
+          <li>3. Lymphatic obstruction (filariasis, carcinoma / node dissection).</li>
+          <li>4. Na⁺ &amp; water retention (intrinsic renal, aldosterone, ADH).</li>
+          <li>5. Inflammation → protein-rich exudate, SG 1.015–1.020.</li>
+          <li>6. Drugs: NSAIDs, Ca²⁺ blockers, corticosteroids, antidiabetics.</li>
+          <li>Pitting = subcutaneous; non-pitting = lymphoedema.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Virchow’s triad</h3>
+        <ul>
+          <li>1. Endothelial injury — key for <b>arterial &amp; cardiac</b> thrombi.</li>
+          <li>2. Abnormal blood flow — turbulence (arterial) / stasis (venous).</li>
+          <li>3. Hypercoagulability — hereditary (AT-III, protein C/S deficiency) or acquired (age, immobility, smoking, malignancy, pregnancy).</li>
+          <li>Arterial thrombi grow retrograde; venous thrombi extend with flow — both propagate toward the heart.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Fate of a thrombus</h3>
+        <ul>
+          <li><b>Propagation</b> — accumulates platelets/fibrin, obstructs vessel.</li>
+          <li><b>Embolization</b> — dislodges, travels elsewhere.</li>
+          <li><b>Dissolution</b> — fibrinolysis (± streptokinase/urokinase, best early).</li>
+          <li><b>Organization &amp; recanalization</b> — fibrosis, may reopen a channel.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Embolism — 99% are thrombi</h3>
+        <ul>
+          <li>Types: thrombo-, fat/marrow, bacterial, air, amniotic fluid, tumor cell, foreign body.</li>
+          <li>Fat embolism: after long-bone fracture; seen in 90%, symptomatic in &lt;10%.</li>
+          <li>Air embolism: needs &gt;100 cc; "the bends/chokes."</li>
+          <li>Amniotic fluid embolism: 1/50,000 deliveries, 80% mortality, causes DIC.</li>
+          <li>Venous emboli → <b>pulmonary embolism</b> (most common &amp; fatal form).</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Infarction</h3>
+        <ul>
+          <li>Ischemic necrosis; 99% thrombotic/embolic.</li>
+          <li><b>White (anemic)</b>: arterial occlusion, solid single-supply organs (heart, spleen, kidney), pyramid-shaped coagulative necrosis.</li>
+          <li><b>Red (haemorrhagic)</b>: venous occlusion or dual-supply loose organs (lung, liver, gut, brain).</li>
+          <li><b>Septic</b>: infected vegetation or necrotic tissue seeding.</li>
+          <li>Neurons tolerate ischemia 3–4 min; myocardium 20–30 min.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Coronary artery disease &amp; MI</h3>
+        <ul>
+          <li>Plaque = lipid core (foam cells) + fibrous cap (smooth muscle cells).</li>
+          <li>Rupture → luminal thrombus over necrotic core.</li>
+          <li>MI diagnosis: ↑/↓ troponin <b>plus</b> one of — ischemic symptoms, new ST-T change/LBBB, pathological Q wave, imaging loss of viable myocardium, intracoronary thrombus on angiography/autopsy.</li>
+          <li>Risk factors: smoking, cholesterol, hypertension, inactivity, obesity, diabetes, alcohol, stress, diet, age.</li>
+        </ul>
+      </div>
+      <div class="ov-card">
+        <h3>Pulmonary oedema</h3>
+        <ul>
+          <li><b>Cardiogenic</b>: ↑ pulmonary wedge pressure → rapid transudation.</li>
+          <li><b>Non-cardiogenic</b>: damaged alveolar-capillary membrane leaks protein + fluid, wedge pressure normal.</li>
+          <li>Hypoalbuminemia does <b>NOT</b> cause pulmonary oedema.</li>
+          <li>Causes: ARDS, re-expansion after pneumothorax/large pleural tap, narcotic overdose (heroin, methadone).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 DIAGRAMS ================= -->
+  <section class="panel" id="diagrams">
+    <div class="panel-head">
+      <h2>Interactive diagrams</h2>
+      <p>Click, toggle, and compare — every figure below responds.</p>
+    </div>
+
+    <!-- Diagram 1: vessel flow states -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>1 · Vascular bed — normal / hyperemia / congestion</h3><span class="hint">click a state</span></div>
+      <div class="diagram-body">
+        <div class="flow-toggle" id="flowToggle">
+          <button class="active" data-state="normal">Normal</button>
+          <button data-state="hyperemia">Active hyperemia</button>
+          <button data-state="congestion">Congestion</button>
+        </div>
+        <svg class="vessel-svg" viewBox="0 0 640 200" id="vesselSvg">
+          <line x1="10" y1="100" x2="80" y2="100" id="vArrowIn" stroke="#7A302B" stroke-width="6"/>
+          <polygon points="80,90 100,100 80,110" id="vArrowInHead" fill="#7A302B"/>
+          <g id="vesselBed" stroke-width="4" fill="none">
+            <path d="M110,100 C160,50 200,150 250,100" />
+            <path d="M110,100 C160,150 200,50 250,100" />
+            <path d="M150,100 C190,60 230,140 270,100" />
+            <path d="M150,100 C190,140 230,60 270,100" />
+            <path d="M190,100 C230,55 270,145 310,100" />
+            <path d="M190,100 C230,145 270,55 310,100" />
+            <path d="M230,100 C280,50 320,150 370,100" />
+            <path d="M230,100 C280,150 320,50 370,100" />
+            <path d="M290,100 C340,60 380,140 420,100" />
+            <path d="M290,100 C340,140 380,60 420,100" />
+            <path d="M340,100 C390,55 430,145 470,100" />
+            <path d="M340,100 C390,145 430,55 470,100" />
+          </g>
+          <line x1="470" y1="100" x2="560" y2="100" id="vArrowOut" stroke="#1E5A49" stroke-width="6"/>
+          <polygon points="560,90 580,100 560,110" id="vArrowOutHead" fill="#1E5A49"/>
+          <text x="10" y="130" font-size="12" fill="#9FB0AA" font-family="IBM Plex Mono, monospace">arteriole</text>
+          <text x="510" y="130" font-size="12" fill="#9FB0AA" font-family="IBM Plex Mono, monospace">venule</text>
+        </svg>
+        <div class="vessel-desc" id="vesselDesc"><b>Normal —</b> steady inflow through the arteriole matches steady outflow through the venule; capillary bed volume stays constant.</div>
+      </div>
+    </div>
+
+    <!-- Diagram 2: Virchow’s triad -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>2 · Virchow’s triad</h3><span class="hint">click a corner</span></div>
+      <div class="diagram-body">
+        <div class="triad-wrap">
+          <svg class="triad-svg" viewBox="0 0 320 300">
+            <line x1="160" y1="30" x2="40" y2="250" stroke="#24342E" stroke-width="1.5"/>
+            <line x1="160" y1="30" x2="280" y2="250" stroke="#24342E" stroke-width="1.5"/>
+            <line x1="40" y1="250" x2="280" y2="250" stroke="#24342E" stroke-width="1.5"/>
+            <circle cx="160" cy="150" r="46" fill="#101A17" stroke="#C6483E" stroke-width="1.5"/>
+            <text x="160" y="146" text-anchor="middle" font-size="12" fill="#EAEFEA" font-weight="600">THROMBOSIS</text>
+            <text x="160" y="162" text-anchor="middle" font-size="9.5" fill="#9FB0AA">click a node →</text>
+
+            <g class="triad-node" data-node="endothelial" tabindex="0">
+              <circle cx="160" cy="30" r="30" fill="#101A17" stroke="#2E8B72" stroke-width="1.6"/>
+              <text x="160" y="26" text-anchor="middle" font-size="9.5">Endothelial</text>
+              <text x="160" y="38" text-anchor="middle" font-size="9.5">injury</text>
+            </g>
+            <g class="triad-node" data-node="flow" tabindex="0">
+              <circle cx="40" cy="250" r="30" fill="#101A17" stroke="#2E8B72" stroke-width="1.6"/>
+              <text x="40" y="246" text-anchor="middle" font-size="9.5">Abnormal</text>
+              <text x="40" y="258" text-anchor="middle" font-size="9.5">blood flow</text>
+            </g>
+            <g class="triad-node" data-node="coag" tabindex="0">
+              <circle cx="280" cy="250" r="30" fill="#101A17" stroke="#2E8B72" stroke-width="1.6"/>
+              <text x="280" y="246" text-anchor="middle" font-size="9.5">Hyper-</text>
+              <text x="280" y="258" text-anchor="middle" font-size="9.5">coagulability</text>
+            </g>
+          </svg>
+          <div class="triad-detail" id="triadDetail">
+            <h4>Select a node</h4>
+            <p>Any one of the three conditions can tip the balance toward intravascular clot formation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagram 3: Oedema mechanisms -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>3 · Six roads to oedema</h3><span class="hint">click a card</span></div>
+      <div class="diagram-body">
+        <div class="quad-grid" id="quadGrid"></div>
+        <div class="quad-detail" id="quadDetail">Select a mechanism above to see how it drives fluid into the tissues.</div>
+      </div>
+    </div>
+
+    <!-- Diagram 4: Fate of thrombus -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>4 · Fate of a thrombus</h3><span class="hint">click a step</span></div>
+      <div class="diagram-body">
+        <div class="fate-row" id="fateRow"></div>
+        <div class="fate-detail" id="fateDetail">Select a step to expand it.</div>
+      </div>
+    </div>
+
+    <!-- Diagram 5: Infarct comparison -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>5 · White vs red vs septic infarction</h3><span class="hint">click a tab</span></div>
+      <div class="diagram-body">
+        <div class="infarct-tabs" id="infarctTabs">
+          <button class="active" data-t="white">White (anaemic)</button>
+          <button data-t="red">Red (haemorrhagic)</button>
+          <button data-t="septic">Septic</button>
+        </div>
+        <table class="infarct-table" id="infarctTable"></table>
+      </div>
+    </div>
+
+    <!-- Diagram 6: MI diagnostic criteria -->
+    <div class="diagram-block">
+      <div class="dblock-head"><h3>6 · Diagnosing myocardial infarction</h3><span class="hint">tick the criteria present</span></div>
+      <div class="diagram-body">
+        <div class="mi-flow">
+          <div class="mi-req">Rise and/or fall of cardiac biomarkers — preferably <b>cardiac troponin</b></div>
+          <div class="mi-plus">+ at least ONE of the following</div>
+          <div class="mi-options" id="miOptions"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= 03 MINI MAP ================= -->
+  <section class="panel" id="minimap">
+    <div class="panel-head">
+      <h2>Mini map</h2>
+      <p>Pick a topic on the left — the full text opens on the right, in place.</p>
+    </div>
+    <div class="map-layout">
+      <div class="map-index" id="mapIndex"></div>
+      <div class="map-display" id="mapDisplay">
+        <p class="map-empty">Select a topic to read its full text here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 FLASHCARDS ================= -->
+  <section class="panel" id="flashcards">
+    <div class="panel-head">
+      <h2>Flashcards</h2>
+      <p>Tap a card to flip it. Shuffle to test recall out of order. Pick a difficulty level below.</p>
+    </div>
+    <div class="level-tabs" id="fcLevelTabs" role="tablist">
+      <button class="level-tab active" data-level="easy">Level 1 · Easy <span class="lvl-count">60</span></button>
+      <button class="level-tab" data-level="medium">Level 2 · Medium <span class="lvl-count">50</span></button>
+      <button class="level-tab" data-level="hard">Level 3 · Hard <span class="lvl-count">40</span></button>
+    </div>
+    <div class="fc-toolbar">
+      <div class="fc-count" id="fcCount">Card 1 / 60</div>
+      <div class="fc-controls">
+        <button id="fcShuffle">Shuffle</button>
+        <button id="fcReset">Reset order</button>
+      </div>
+    </div>
+    <div class="fc-stage">
+      <div class="fc-card" id="fcCard">
+        <div class="fc-inner">
+          <div class="fc-face fc-front">
+            <div class="tag">TERM</div>
+            <p id="fcFront"></p>
+          </div>
+          <div class="fc-face fc-back">
+            <div class="tag">ANSWER</div>
+            <p id="fcBack"></p>
+          </div>
+        </div>
+      </div>
+      <div class="fc-hint">click card to flip</div>
+      <div class="fc-nav">
+        <button id="fcPrev">← Previous</button>
+        <button id="fcNext">Next →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 05 QUIZ ================= -->
+  <section class="panel" id="quiz">
+    <div class="panel-head">
+      <h2>Quiz bank</h2>
+      <p>150 questions across three difficulty levels. Options are re-shuffled every time you play.</p>
+    </div>
+    <div class="level-tabs" id="quizLevelTabs" role="tablist">
+      <button class="level-tab active" data-level="easy">Level 1 · Easy <span class="lvl-count">60</span></button>
+      <button class="level-tab" data-level="medium">Level 2 · Medium <span class="lvl-count">50</span></button>
+      <button class="level-tab" data-level="hard">Level 3 · Hard <span class="lvl-count">40</span></button>
+    </div>
+    <div class="quiz-top">
+      <div class="quiz-qnum" id="quizPos">Question 1 / 60</div>
+      <div class="quiz-score" id="quizScore">Score: 0</div>
+    </div>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quizProgressBar"></div></div>
+    <div id="quizArea"></div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Study Smart — Cardiovascular disorders revision material.</span>
+  <span>© <span class="mark">Anmar Taha</span>. All rights reserved.</span>
+</footer>
+
+<script>
+/* ============ TAB SWITCHING ============ */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.panel');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============ DIAGRAM 1: vessel states ============ */
+const vesselStates = {
+  normal:{
+    stroke:'#5A7A70', arrowIn:'#7A302B', arrowOut:'#1E5A49',
+    desc:'<b>Normal —</b> steady inflow through the arteriole matches steady outflow through the venule; capillary bed volume stays constant.'
+  },
+  hyperemia:{
+    stroke:'#C6483E', arrowIn:'#C6483E', arrowOut:'#C6483E',
+    desc:'<b>Active hyperemia —</b> arteriolar dilation increases inflow (exercise, inflammation, fever, blushing). The bed fills with oxygenated blood — tissue looks red (erythema).'
+  },
+  congestion:{
+    stroke:'#2E5F8A', arrowIn:'#2E5F8A', arrowOut:'#1B3A54',
+    desc:'<b>Congestion (passive hyperemia) —</b> impaired venous outflow traps deoxygenated blood in the bed. Tissue looks blue-red (cyanosis) from accumulated deoxy-haemoglobin.'
+  }
+};
+const flowToggle = document.getElementById('flowToggle');
+const vesselBed = document.getElementById('vesselBed');
+const vesselDesc = document.getElementById('vesselDesc');
+const vArrowIn = document.getElementById('vArrowIn');
+const vArrowInHead = document.getElementById('vArrowInHead');
+const vArrowOut = document.getElementById('vArrowOut');
+const vArrowOutHead = document.getElementById('vArrowOutHead');
+function setVesselState(state){
+  const s = vesselStates[state];
+  vesselBed.setAttribute('stroke', s.stroke);
+  vArrowIn.setAttribute('stroke', s.arrowIn);
+  vArrowInHead.setAttribute('fill', s.arrowIn);
+  vArrowOut.setAttribute('stroke', s.arrowOut);
+  vArrowOutHead.setAttribute('fill', s.arrowOut);
+  vesselDesc.innerHTML = s.desc;
+}
+setVesselState('normal');
+flowToggle.querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    flowToggle.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    setVesselState(btn.dataset.state);
+  });
+});
+
+/* ============ DIAGRAM 2: Virchow triad ============ */
+const triadData = {
+  endothelial:{
+    title:'Endothelial injury',
+    text:'Vascular injury exposes thrombogenic subendothelial matrix (collagen, elastin, fibronectin, laminin, glycosaminoglycans). Causes: endocardial injury (MI, myocarditis, cardiac surgery, prosthetic valves), ulcerated atherosclerotic plaques, hypertensive stress, arteritis, diabetes, hypercholesterolemia, endotoxins, cigarette smoke. Dominant in arterial and cardiac thrombi, especially the left ventricle.'
+  },
+  flow:{
+    title:'Abnormal blood flow',
+    text:'Turbulence disturbs the normal axial flow and favours arterial/cardiac thrombi. Stasis lets platelets marginate and pavement against the endothelium, and can trigger venous thrombi even without any endothelial injury.'
+  },
+  coag:{
+    title:'Hypercoagulability (thrombophilia)',
+    text:'Hereditary: deficiency of antithrombin III, protein C, or protein S. Acquired: advancing age, prolonged bed rest/immobilization, smoking, obesity, heart disease, vascular disease, shock, tissue trauma, late pregnancy and puerperium.'
+  }
+};
+document.querySelectorAll('.triad-node').forEach(node=>{
+  const activate = ()=>{
+    const d = triadData[node.dataset.node];
+    document.getElementById('triadDetail').innerHTML = `<h4>${d.title}</h4><p>${d.text}</p>`;
+    document.querySelectorAll('.triad-node circle').forEach(c=>c.setAttribute('stroke','#2E8B72'));
+    node.querySelector('circle').setAttribute('stroke','#C6483E');
+  };
+  node.addEventListener('click',activate);
+  node.addEventListener('keypress',e=>{if(e.key==='Enter')activate();});
+});
+
+/* ============ DIAGRAM 3: Oedema mechanisms ============ */
+const quadData = [
+  {t:'Increased hydrostatic pressure', d:'<b>Local:</b> impaired venous outflow — DVT, dependent limb inactivity. <b>Generalized:</b> congestive heart failure affecting right-ventricular function.'},
+  {t:'Reduced plasma oncotic pressure', d:'Excessive loss or reduced synthesis of <b>albumin</b>, the protein chiefly responsible for colloid osmotic pressure — classically <b>nephrotic syndrome</b>.'},
+  {t:'Lymphatic obstruction', d:'Obstructed lymph outflow causes localized <b>lymphoedema</b>. Example: filariasis (elephantiasis); carcinoma with direct obstruction or after axillary node dissection / irradiation.'},
+  {t:'Sodium &amp; water retention', d:'~80% of Na⁺ is reabsorbed at the proximal convoluted tubule. Intrinsic renal mechanism activates with hypovolemia (e.g. haemorrhage); extra-renal mechanism involves aldosterone; large ADH release concentrates urine.'},
+  {t:'Inflammation', d:'Local rise in vascular permeability produces a protein-rich <b>exudate</b>, specific gravity roughly 1.015–1.020.'},
+  {t:'Medications', d:'NSAIDs (ibuprofen, naproxen), calcium channel blockers, corticosteroids (prednisone, methylprednisolone), antidiabetic drugs.'}
+];
+const quadGrid = document.getElementById('quadGrid');
+quadData.forEach((q,i)=>{
+  const card = document.createElement('div');
+  card.className='quad-card';
+  card.innerHTML = `<div class="qnum">0${i+1}</div><h4>${q.t}</h4>`;
+  card.addEventListener('click',()=>{
+    document.querySelectorAll('.quad-card').forEach(c=>c.classList.remove('active'));
+    card.classList.add('active');
+    document.getElementById('quadDetail').innerHTML = q.d;
+  });
+  quadGrid.appendChild(card);
+});
+
+/* ============ DIAGRAM 4: Fate of thrombus ============ */
+const fateData = [
+  {t:'Propagation', d:'The thrombus accumulates additional platelets and fibrin, progressively narrowing and eventually obstructing the vessel.'},
+  {t:'Embolization', d:'Part of the thrombus dislodges or fragments and is carried elsewhere in the vasculature as an embolus.'},
+  {t:'Dissolution', d:'Fibrinolytic activity removes the thrombus, and can be boosted with thrombolytics (urokinase, streptokinase) — most effective early, while fibrin is still monomeric, e.g. in early acute MI.'},
+  {t:'Organization &amp; recanalization', d:'The thrombus induces inflammation and fibrosis. It may recanalize, re-establishing some flow, or be incorporated permanently into a thickened vessel wall.'}
+];
+const fateRow = document.getElementById('fateRow');
+fateData.forEach((f,i)=>{
+  const step = document.createElement('button');
+  step.className='fate-step';
+  step.innerHTML = `<div class="fnum">${i+1}</div><h4>${f.t}</h4>`;
+  step.addEventListener('click',()=>{
+    document.querySelectorAll('.fate-step').forEach(s=>s.classList.remove('active'));
+    step.classList.add('active');
+    document.getElementById('fateDetail').innerHTML = `<b>${f.t.replace('&amp;','&')}:</b> ${f.d}`;
+  });
+  fateRow.appendChild(step);
+});
+
+/* ============ DIAGRAM 5: infarction comparison ============ */
+const infarctData = {
+  white:{
+    cause:'Arterial occlusion',
+    organs:'Solid organs without dual supply — heart, spleen, kidney',
+    appearance:'Pyramid-shaped coagulative necrosis; apex points to the occluded artery, base at the periphery',
+    mechanism:'Lack of erythrocyte accumulation gives a pale, "white" appearance'
+  },
+  red:{
+    cause:'Venous occlusion',
+    organs:'Loose organs with dual circulation — lung, liver, GIT, brain',
+    appearance:'Massive erythrocyte accumulation gives a red / haemorrhagic appearance',
+    mechanism:'Loose tissue architecture lets red cells seep into the necrotic area during injury'
+  },
+  septic:{
+    cause:'Infected embolus or seeded necrotic tissue',
+    organs:'Any infarcted site that becomes secondarily infected',
+    appearance:'Infarct converts into an abscess',
+    mechanism:'Bacterial vegetation fragments break off, or microbes seed already-necrotic tissue'
+  }
+};
+const infarctTable = document.getElementById('infarctTable');
+function renderInfarct(key){
+  const d = infarctData[key];
+  infarctTable.innerHTML = `
+    <tr><td class="label">Cause</td><td class="val">${d.cause}</td></tr>
+    <tr><td class="label">Typical organs</td><td class="val">${d.organs}</td></tr>
+    <tr><td class="label">Appearance</td><td class="val">${d.appearance}</td></tr>
+    <tr><td class="label">Why</td><td class="val">${d.mechanism}</td></tr>
+  `;
+}
+renderInfarct('white');
+document.getElementById('infarctTabs').querySelectorAll('button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#infarctTabs button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderInfarct(btn.dataset.t);
+  });
+});
+
+/* ============ DIAGRAM 6: MI checklist ============ */
+const miCriteria = [
+  'Symptoms of ischemia',
+  'New / presumed new significant ST–T changes, or new LBBB',
+  'Development of pathological Q waves on ECG',
+  'Imaging: new loss of viable myocardium or new regional wall-motion abnormality (echo)',
+  'Intracoronary thrombus identified by angiography or autopsy'
+];
+const miOptions = document.getElementById('miOptions');
+miCriteria.forEach(c=>{
+  const opt = document.createElement('div');
+  opt.className='mi-opt';
+  opt.innerHTML = `<span class="box"></span>${c}`;
+  opt.addEventListener('click',()=>opt.classList.toggle('checked'));
+  miOptions.appendChild(opt);
+});
+
+/* ============ MINI MAP ============ */
+const mapData = [
+  {
+    title:'Homeostasis',
+    html:`<p>The mechanism by which constancy of the internal environment is maintained. Living membranes such as the cell wall and vascular endothelium govern exchange of fluid, electrolytes, nutrients and metabolites.</p>
+    <ul>
+      <li>Total body water ≈ 60% of body weight.</li>
+      <li>Intracellular fluid: 33%. Extracellular fluid: 27%.</li>
+      <li>Intracellular fluid has low sodium and chloride; extracellular fluid has high sodium, chloride and bicarbonate.</li>
+      <li>Plasma has a higher protein content than interstitial fluid.</li>
+    </ul>`
+  },
+  {
+    title:'Hyperemia &amp; congestion',
+    html:`<p>Terms for a localized increase in blood volume within dilated vessels of an organ or tissue.</p>
+    <ul>
+      <li><b>Active hyperemia</b>: increased volume from arterial/arteriolar dilatation (increased inflow).</li>
+      <li><b>Venous congestion / passive hyperemia</b>: impaired venous drainage (diminished outflow).</li>
+      <li>Can be acute (rapid onset) or chronic (prolonged, gradual).</li>
+    </ul>
+    <p><b>Active hyperemia causes:</b> neurogenic/hormonal (blushing), fever, inflammation, menopausal flush, muscular/exercise (functional) hyperemia, goiter, arteriovenous malformations.</p>
+    <p><b>Reactive (passive) hyperemia / congestion:</b> blood collects in an organ as veins are blocked; oxygen content falls, metabolic waste builds up, and the tissue turns blue-red (cyanotic) as deoxygenated haemoglobin accumulates.</p>
+    <p><b>Types of venous congestion:</b> Local — obstruction to venous outflow from one organ/part, e.g. portal venous obstruction in liver cirrhosis. Systemic (general) — engorgement of veins, e.g. left- and right-sided heart failure, or lung disease interfering with pulmonary flow (pulmonary fibrosis, emphysema). Chronic venous congestion (CVC) is the more common pattern.</p>`
+  },
+  {
+    title:'Oedema',
+    html:`<p>A local or generalized abnormal, excessive accumulation of free fluid in interstitial tissue spaces and serous cavities.</p>
+    <ul>
+      <li><b>Effusion</b>: free fluid in a body cavity — ascites (peritoneal), hydrothorax (pleural), hydropericardium (pericardial).</li>
+      <li><b>Oedema</b> proper: free fluid lying between cells in the interstitial space.</li>
+      <li><b>Pitting oedema</b>: finger pressure leaves a depression. <b>Non-pitting</b>: no pitting, e.g. myxoedema, elephantiasis.</li>
+    </ul>
+    <p><b>Pathophysiology — six mechanisms:</b></p>
+    <ul>
+      <li>1. Increased hydrostatic pressure — local (impaired venous outflow, DVT, dependency) or generalized (CHF affecting right ventricular function).</li>
+      <li>2. Reduced plasma oncotic pressure — loss/under-synthesis of albumin, e.g. nephrotic syndrome.</li>
+      <li>3. Lymphatic obstruction — lymphoedema, e.g. filariasis (elephantiasis) or carcinoma (direct obstruction, or after axillary node dissection/irradiation).</li>
+      <li>4. Sodium and water retention — ~80% of sodium is reabsorbed at the proximal convoluted tubule; intrinsic renal mechanism responds to hypovolemia (e.g. severe haemorrhage); extra-renal mechanism involves aldosterone secretion; large amounts of ADH concentrate the urine.</li>
+      <li>5. Inflammation — increases vascular permeability locally, producing an exudate (protein-rich, specific gravity ~1.015–1.020).</li>
+      <li>6. Medications — NSAIDs (ibuprofen, naproxen), calcium channel blockers, corticosteroids (prednisone, methylprednisolone), antidiabetic drugs.</li>
+    </ul>
+    <p><b>Clinical types:</b> Localized (one organ/part — brain, lung, hydrothorax, ascites) vs Generalized (anasarca). Pitting sign relates to decreased serum protein, increased systemic venous pressure and increased capillary permeability; non-pitting oedema is caused by lymphatic drainage abnormalities.</p>`
+  },
+  {
+    title:'Thrombosis',
+    html:`<p>Formation of a blood clot within the intravascular compartment, obstructing flow through the circulatory system. A thrombus is a clot of fibrin, platelets, red blood cells and white blood cells that forms in a vessel or heart chamber.</p>
+    <p><b>Pathophysiology — Virchow’s triad:</b> any alteration in (1) blood flow — turbulence/stasis, (2) vascular integrity — injury/inflammation, or (3) hypercoagulability of the blood, leads to thrombosis.</p>
+    <p><b>1. Endothelial injury:</b> exposes the thrombogenic subendothelial matrix (collagen, elastin, fibronectin, laminin, glycosaminoglycans), initiating haemostasis and thrombosis, and briefly causing vasoconstriction. Major significance in arterial and cardiac thrombi, especially of the left ventricle. Causes of vascular injury include endocardial injury (MI, myocarditis, cardiac surgery, prosthetic valves), ulcerated atherosclerotic plaques, hypertensive haemodynamic stress, arterial disease (e.g. Takayasu's arteritis), diabetes mellitus, endogenous chemicals (hypercholesterolemia, endotoxins), and exogenous chemicals (cigarette smoke).</p>
+    <p><b>2. Altered blood flow:</b> turbulence and stasis disturb normal axial flow; slowed blood lets cells (including platelets) marginate and pavement near the endothelium. Turbulence facilitates arterial and cardiac thrombi; stasis initiates venous thrombi even without endothelial injury.</p>
+    <p><b>3. Hypercoagulability (thrombophilia):</b> increased risk of venous thrombosis. Hereditary — deficiency of antithrombin III, protein C, or protein S. Acquired — risk factors (advancing age, prolonged bed rest/immobilization, smoking, obesity) and predisposing conditions (heart disease, vascular disease, shock, tissue damage/trauma/fractures/burns/surgery, late pregnancy and puerperium).</p>
+    <p><b>Location and growth:</b> thrombi can form anywhere in the cardiovascular system. Arterial/cardiac thrombi begin at sites of endothelial injury or turbulence and grow retrograde from the attachment point; venous thrombi form at sites of stasis and extend in the direction of flow — both tend to propagate toward the heart. The propagating portion is poorly attached and prone to fragmentation (embolus). Thrombi in heart chambers or the aortic lumen are called mural thrombi.</p>
+    <p><b>Types of thrombi:</b> Arterial — frequently occlusive, platelet- and coagulation-driven, a friable meshwork of platelets, fibrin, erythrocytes and degenerating leukocytes, usually superimposed on an atherosclerotic plaque (or vasculitis/trauma). Venous (phlebothrombosis) — almost always occlusive, can form a long cast of the lumen, largely coagulation-cascade driven with platelets playing a secondary role. Cardiac — mural (non-occlusive), as are mural thrombi in large vessels like the aorta in atherosclerosis/aneurysms. Thrombi on heart valves are called vegetations; bacterial or fungal blood-borne infection can damage valves and produce large thrombotic masses (infective endocarditis).</p>
+    <p><b>Fate of the thrombus:</b> Propagation, Embolization, Dissolution (fibrinolysis, aided by thrombolytics such as urokinase/streptokinase, especially early), or Organization and recanalization (inflammation and fibrosis, possible recanalization or incorporation into the vessel wall).</p>`
+  },
+  {
+    title:'Embolism',
+    html:`<p>A detached intravascular solid, liquid, or gaseous mass carried by the blood to a site distant from its point of origin. About 99% of emboli are dislodged thrombi.</p>
+    <p><b>Types:</b> Thromboembolism (arterial or venous), fat and marrow embolism, bacterial embolism, air embolism (decompression sickness), amniotic fluid embolism, tumor cell embolism, foreign body embolism.</p>
+    <p><b>Fat embolism:</b> occurs mostly after fractures of long bones, soft tissue trauma or burns. Found in 90% of individuals with severe skeletal injuries, though fewer than 10% have clinical findings.</p>
+    <p><b>Air embolism:</b> decompression sickness — "the bends" or "the chokes." Needs an excess of 100 cc of air for clinical effect. Characterized by painful muscle cramps, respiratory insufficiency, neurological symptoms, gas bubbles within skeletal muscle/soft tissue/joints causing pain, and focal ischemia to the brain and heart.</p>
+    <p><b>Amniotic fluid embolism:</b> about 1 in 50,000 deliveries, 80% mortality rate. Sudden severe dyspnea, cyanosis, hypotensive shock followed by seizures and coma, pulmonary oedema and disseminated intravascular coagulation (DIC). Caused by fetal squamous cells shed from skin, lanugo hair, fat from vernix, and mucin from the GI tract entering the pulmonary microcirculation.</p>
+    <p><b>Arterial emboli</b> may arise from causes within the heart (80–85%) or within the arteries. <b>Venous thromboembolism</b> most commonly arises from deep vein thrombosis (DVT) of the lower legs.</p>
+    <p><b>Effects:</b> the most significant effect of venous embolism is obstruction of the pulmonary arterial circulation, i.e. pulmonary embolism — the most common and fatal form of venous thromboembolism. Systemic thromboembolism is emboli travelling within the arterial circulation and impacting systemic arteries.</p>`
+  },
+  {
+    title:'Infarction',
+    html:`<p>An area of ischemic necrosis caused by occlusion of either the arterial supply or venous drainage. About 99% are due to thrombotic or embolic events; the remainder result from local vasospasm, extrinsic compression, haemorrhage within a plaque, or torsion/traumatic rupture. Infarcts from venous thrombosis are more common in organs with a single venous outflow, e.g. testis, ovary.</p>
+    <p><b>White (anaemic) infarction:</b> due to arterial occlusion. Called "white" because erythrocytes fail to accumulate; shows pyramid-shaped coagulative necrosis, apex pointing to the occluded artery, base at the periphery. Occurs in solid organs without dual arterial supply — heart, spleen, kidneys.</p>
+    <p><b>Red (haemorrhagic) infarction:</b> due to venous occlusion. Called "red" because of massive erythrocyte accumulation. Involves loose organs with dual circulation — lungs, liver, GIT and brain — where the loose tissue lets erythrocytes seep in during injury.</p>
+    <p><b>Septic infarction:</b> may develop from bacterial vegetation fragments, microbes seeding a necrotic tissue, or an infarct converting into an abscess.</p>
+    <p><b>Factors influencing infarct development:</b> vascular supply (dual-supply organs are less vulnerable than single-supply organs), rate of development of occlusion (time available for alternate perfusion pathways), vulnerability of the tissue to hypoxia (neurons 3–4 minutes, myocardium 20–30 minutes), and the blood's oxygen content (e.g. ventilation).</p>`
+  },
+  {
+    title:'Coronary heart disease &amp; myocardial infarction',
+    html:`<p>Coronary artery disease is a narrowing or blockage of the arteries and vessels that supply oxygen and nutrients to the heart. It is caused by atherosclerosis, an accumulation of fatty material on the inner linings of arteries. The resulting blockage restricts blood flow to the heart; when flow is completely cut off, the result is a heart attack.</p>
+    <p><b>Pathophysiology:</b> coronary artery disease is almost always due to atheromatous narrowing and subsequent occlusion of the vessel. A mature plaque has two constituents — a lipid core, mainly released from necrotic "foam cells" (monocyte-derived macrophages that migrate into the intima and ingest lipids), and a connective tissue matrix derived from smooth muscle cells that migrate from the media into the intima, proliferate, and change phenotype to form a fibrous capsule around the lipid core. With rupture, a luminal thrombus communicates with the underlying necrotic core. A fibrocalcific plaque is a collagen-rich plaque containing large areas of calcification, with only a few cells; a necrotic core may be present in old plaques.</p>
+    <p>Limitation of blood flow to the heart causes ischemia (cell starvation from lack of oxygen) of myocardial cells. Cells that die from lack of oxygen constitute a myocardial infarction.</p>
+    <p><b>Risk factors:</b> tobacco smoke, high blood cholesterol, high blood pressure, low physical activity, obesity/overweight, diabetes mellitus, alcohol, stress, diet and nutrition, age.</p>
+    <p><b>Myocardial infarction (MI):</b> the term acute myocardial infarction should be used when there is evidence of myocardial necrosis in a clinical setting consistent with acute myocardial ischemia. Under these conditions, any one of the following criteria meets the diagnosis: detection of a rise and/or fall of cardiac biomarker values (preferably cardiac troponin) together with at least one of — symptoms of ischemia; new or presumed new significant ST-segment–T wave changes or new left bundle branch block (LBBB); development of pathological Q waves on the ECG; imaging evidence of new loss of viable myocardium or a new regional wall-motion abnormality on echocardiogram; identification of an intracoronary thrombus by angiography or autopsy.</p>`
+  },
+  {
+    title:'Pulmonary oedema',
+    html:`<p>Abnormal accumulation of fluid in the air sacs of the lungs and parenchyma, leading to shortness of breath and impaired exchange of oxygen and carbon dioxide, resulting in poor oxygenation of blood.</p>
+    <p><b>I. Cardiogenic:</b> caused by rapid transudation of fluid into the lungs secondary to increased pulmonary wedge pressure, without time for compensation of the pulmonary bed. Increased wedge pressure raises pulmonary venous pressure and microvascular pressure, leading to transudation of fluid.</p>
+    <p><b>II. Non-cardiogenic:</b> radiographic evidence of alveolar fluid accumulation without elevated pulmonary capillary wedge pressure. The alveolar-capillary membrane becomes damaged and leaky, letting proteins and water move into the interstitial space. Note: hypoalbuminemia does NOT cause pulmonary oedema.</p>
+    <p><b>Etiologies of non-cardiogenic pulmonary oedema:</b> Acute respiratory distress syndrome — ARDS (sepsis, DIC, inhaled toxins, radiation pneumonia, high oxygen concentrations, severe trauma); re-expansion pulmonary oedema (after re-expansion of a pneumothorax or removal of large amounts of pleural fluid, &gt;1.0–1.5 L); narcotic overdose (heroin or methadone, usually within 2 hours of injection — mechanism unclear but believed to involve direct toxicity, hypoxia, hyperventilation, or cerebral oedema).</p>`
+  }
+];
+const mapIndex = document.getElementById('mapIndex');
+const mapDisplay = document.getElementById('mapDisplay');
+mapData.forEach((m,i)=>{
+  const btn = document.createElement('button');
+  btn.className='map-item';
+  btn.innerHTML = `<span>${m.title}</span><span class="dot"></span>`;
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.map-item').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    mapDisplay.innerHTML = `<h3>${m.title}</h3><div class="body-text">${m.html}</div>`;
+    mapDisplay.scrollTop = 0;
+  });
+  mapIndex.appendChild(btn);
+});
+
+/* ============ FLASHCARDS ============ */
+const flashcardsByLevel = {
+easy: [
+  {f:'Total body water as a percentage of body weight', b:'About <b>60%</b>.'},
+  {f:'Percentage of body weight represented by intracellular fluid (ICF)', b:'<b>33%</b>.'},
+  {f:'Percentage of body weight represented by extracellular fluid (ECF)', b:'<b>27%</b>.'},
+  {f:'Which body fluid has a higher protein content — plasma or interstitial fluid?', b:'<b>Plasma</b>.'},
+  {f:'Define hyperemia and congestion', b:'Localized increase in the volume of blood within dilated vessels of an organ or tissue.'},
+  {f:'What causes active hyperemia?', b:'Arterial and arteriolar dilatation — increased inflow.'},
+  {f:'What causes venous congestion (passive hyperemia)?', b:'Impaired venous drainage — diminished outflow.'},
+  {f:'Term for a rapidly developing hyperemia/congestion', b:'<b>Acute</b>.'},
+  {f:'Term for a prolonged, gradual hyperemia/congestion', b:'<b>Chronic</b>.'},
+  {f:'What is exercise/functional hyperemia due to?', b:'Increased muscle contraction raising oxygen demand, causing vasodilation.'},
+  {f:'Example of local venous congestion', b:'Portal venous obstruction in liver cirrhosis.'},
+  {f:'Define oedema', b:'Abnormal, excessive accumulation of free fluid in interstitial tissue spaces and serous cavities.'},
+  {f:'What is "effusion"?', b:'Free fluid accumulated in a body cavity, named after that cavity.'},
+  {f:'Fluid in the peritoneal cavity is called', b:'<b>Ascites</b>.'},
+  {f:'Fluid in the pleural cavity is called', b:'<b>Hydrothorax</b> (pleural effusion).'},
+  {f:'Fluid in the pericardial cavity is called', b:'<b>Hydropericardium</b> (pericardial effusion).'},
+  {f:'What is pitting oedema?', b:'A depression left in the skin after momentary finger pressure.'},
+  {f:'Give two examples of non-pitting (solid) oedema', b:'Myxoedema and elephantiasis.'},
+  {f:'Which protein maintains plasma oncotic pressure?', b:'<b>Albumin</b>.'},
+  {f:'Which kidney condition causes oedema through albumin loss?', b:'<b>Nephrotic syndrome</b>.'},
+  {f:'What is lymphoedema?', b:'Localized oedema from obstruction of lymphatic outflow.'},
+  {f:'Generalized oedema of the whole body is called', b:'<b>Anasarca</b>.'},
+  {f:'Define thrombosis', b:'Formation of a blood clot in the intravascular compartment, obstructing blood flow.'},
+  {f:'What four components make up a thrombus?', b:'Fibrin, platelets, red blood cells, and white blood cells.'},
+  {f:'Name the three components of Virchow\u2019s triad', b:'Endothelial injury, altered blood flow, and hypercoagulability of blood.'},
+  {f:'Endothelial injury is most significant in forming which thrombi?', b:'Arterial thrombi and thrombi of the heart (especially the left ventricle).'},
+  {f:'What two patterns of altered blood flow predispose to thrombosis?', b:'Turbulence and stasis.'},
+  {f:'Turbulence favours which type of thrombus?', b:'Arterial and cardiac thrombi.'},
+  {f:'Stasis favours which type of thrombus?', b:'Venous thrombi.'},
+  {f:'Name three hereditary (primary) causes of hypercoagulability', b:'Deficiency of antithrombin III, protein C, or protein S.'},
+  {f:'What is a mural thrombus?', b:'A thrombus in a heart chamber or the aortic lumen.'},
+  {f:'What is a vegetation?', b:'A thrombus on a heart valve.'},
+  {f:'List the four possible fates of a thrombus', b:'Propagation, embolization, dissolution, and organization &amp; recanalization.'},
+  {f:'Define embolism', b:'A detached intravascular solid, liquid, or gaseous mass carried by the blood to a distant site.'},
+  {f:'What percentage of emboli are dislodged thrombi?', b:'About <b>99%</b>.'},
+  {f:'Fat embolism typically follows which type of injury?', b:'Fractures of long bones, soft tissue trauma, or burns.'},
+  {f:'What is decompression sickness also known as?', b:'"The bends" or "the chokes."'},
+  {f:'How much air is generally needed for a clinically significant air embolism?', b:'An excess of <b>100 cc</b>.'},
+  {f:'What is the approximate mortality rate of amniotic fluid embolism?', b:'About <b>80%</b>.'},
+  {f:'What is the most common source of arterial emboli?', b:'Causes within the heart (80\u201385%).'},
+  {f:'What is the most common source of venous thromboemboli?', b:'Deep vein thrombosis (DVT) of the lower legs.'},
+  {f:'Define infarction', b:'An area of ischemic necrosis caused by occlusion of either arterial supply or venous drainage.'},
+  {f:'What percentage of infarcts result from thrombotic or embolic events?', b:'About <b>99%</b>.'},
+  {f:'A white infarct is caused by', b:'Arterial occlusion.'},
+  {f:'A red infarct is caused by', b:'Venous occlusion.'},
+  {f:'Which organs typically develop white infarcts?', b:'Solid organs without dual blood supply \u2014 heart, spleen, kidneys.'},
+  {f:'Which organs typically develop red infarcts?', b:'Loose organs with dual circulation \u2014 lungs, liver, GIT, brain.'},
+  {f:'How long can neurons tolerate ischemia before infarcting?', b:'About <b>3\u20134 minutes</b>.'},
+  {f:'How long can myocardium tolerate ischemia before infarcting?', b:'About <b>20\u201330 minutes</b>.'},
+  {f:'What causes coronary artery disease?', b:'Atherosclerosis \u2014 accumulation of fatty materials on the inner linings of arteries.'},
+  {f:'What happens when coronary blood flow is completely cut off?', b:'A heart attack (myocardial infarction).'},
+  {f:'What is the preferred biomarker for diagnosing MI?', b:'<b>Cardiac troponin</b>.'},
+  {f:'Name three risk factors for coronary heart disease', b:'Tobacco smoke, high blood cholesterol, and high blood pressure (any three of the listed factors).'},
+  {f:'What ECG finding supports a diagnosis of MI?', b:'New pathological Q waves (or new significant ST\u2013T changes / new LBBB).'},
+  {f:'What forms the lipid core of an atheromatous plaque?', b:'Necrotic "foam cells" (lipid-laden macrophages).'},
+  {f:'Define pulmonary oedema', b:'Abnormal accumulation of fluid in the air sacs and parenchyma of the lungs.'},
+  {f:'What are the two categories of pulmonary oedema by cause?', b:'Cardiogenic and non-cardiogenic.'},
+  {f:'Cardiogenic pulmonary oedema is caused by', b:'Increased pulmonary (wedge) capillary pressure.'},
+  {f:'Does hypoalbuminemia cause pulmonary oedema?', b:'<b>No</b> \u2014 it does not cause pulmonary oedema.'},
+  {f:'Name two narcotics linked to pulmonary oedema after overdose', b:'Heroin and methadone.'}
+],
+medium: [
+  {f:'How does the electrolyte pattern differ between intracellular and extracellular fluid?', b:'ICF has low sodium and chloride; ECF has high sodium, chloride, and bicarbonate.'},
+  {f:'Which living membranes are responsible for the exchange of fluid, electrolytes, nutrients, and metabolites in homeostasis?', b:'The cell wall and vascular endothelium.'},
+  {f:'If total body water is 60% of body weight and ICF is 33%, what fraction of body weight is extracellular?', b:'<b>27%</b> (60% \u2212 33%).'},
+  {f:'Distinguish active hyperemia from passive hyperemia (congestion) in terms of blood flow direction', b:'Active hyperemia = increased inflow (arterial/arteriolar dilation); passive hyperemia = diminished outflow (impaired venous drainage).'},
+  {f:'List at least four causes of active hyperemia mentioned in the lecture', b:'Neurogenic/hormonal blushing, fever, inflammation, menopausal flush, muscular exercise, goiter, and arteriovenous malformations (any four).'},
+  {f:'Why does congested tissue appear blue-red (cyanotic)?', b:'Reduced oxygen content and accumulation of deoxygenated haemoglobin as veins become blocked.'},
+  {f:'Give an example each of local and systemic (general) venous congestion', b:'Local \u2014 portal venous obstruction in liver cirrhosis. Systemic \u2014 left- or right-sided heart failure, or lung disease impairing pulmonary blood flow (e.g. pulmonary fibrosis, emphysema).'},
+  {f:'What is the abbreviation for chronic venous congestion, and why is it more common?', b:'<b>CVC</b>; chronic, gradual outflow impairment predominates clinically, making it more common than the acute form.'},
+  {f:'Name the two main pathophysiological mechanisms causing increased-hydrostatic-pressure oedema', b:'Local impaired venous outflow (e.g. DVT, prolonged limb dependency) and generalized causes like congestive heart failure affecting the right ventricle.'},
+  {f:'How does nephrotic syndrome lead to oedema?', b:'Excessive loss of albumin reduces plasma oncotic pressure, allowing fluid to escape into the interstitium.'},
+  {f:'Give two mechanisms by which lymphoedema can develop', b:'Filariasis (elephantiasis) via direct lymphatic obstruction, or carcinoma via direct tumor obstruction or after node dissection/irradiation.'},
+  {f:'Describe the two renal mechanisms of sodium retention that contribute to oedema', b:'Intrinsic renal mechanism, triggered by hypovolemia (e.g. severe hemorrhage); and extra-renal mechanism, via aldosterone secretion.'},
+  {f:'What role does ADH play in oedema formation?', b:'Large amounts of ADH promote water retention by producing highly concentrated urine.'},
+  {f:'Why is inflammatory oedema fluid classified as an exudate rather than a transudate?', b:'It is protein-rich with a specific gravity of about 1.015\u20131.020, reflecting increased vascular permeability from inflammation.'},
+  {f:'Name four classes of medication that can cause oedema', b:'NSAIDs, calcium channel blockers, corticosteroids, and antidiabetic drugs.'},
+  {f:'What three factors underlie the clinical sign of pitting oedema?', b:'Decreased serum protein, increased systemic venous pressure, and increased capillary permeability.'},
+  {f:'Contrast localized versus generalized clinical oedema with an example of each', b:'Localized affects one organ/part (e.g. brain oedema, ascites); generalized involves the whole body (anasarca).'},
+  {f:'Explain how endothelial injury promotes thrombosis', b:'It exposes the thrombogenic subendothelial extracellular matrix (collagen, elastin, fibronectin, laminin, glycosaminoglycans), initiating both hemostasis and thrombosis, and also triggers brief vasoconstriction.'},
+  {f:'List three clinical conditions that predispose to endothelial injury and thrombosis', b:'Myocardial infarction/myocarditis/cardiac surgery/prosthetic valves; ulcerated atherosclerotic plaques; hypertension-related hemodynamic stress (any three).'},
+  {f:'How does stasis initiate venous thrombosis differently from how turbulence initiates arterial thrombosis?', b:'Stasis alone can trigger venous thrombi even without endothelial injury, whereas arterial/cardiac thrombus formation is facilitated by turbulence.'},
+  {f:'What is "margination and pavementing"?', b:'When blood flow slows, blood cells including platelets move to the periphery and form a pavement-like layer close to the endothelium.'},
+  {f:'Name at least four acquired risk factors for hypercoagulability (thrombophilia)', b:'Advancing age, prolonged bed-rest, prolonged immobilization, and cigarette smoking (or obesity).'},
+  {f:'Name three predisposing clinical conditions for venous thrombosis', b:'Heart disease (e.g. CHF, mitral stenosis), vascular disease (e.g. atherosclerosis, varicosities), and shock (or tissue damage, late pregnancy/puerperium).'},
+  {f:'How do arterial and venous thrombi differ in composition?', b:'Arterial thrombi are a friable meshwork of platelets, fibrin, erythrocytes, and degenerating leukocytes (platelet/coagulation driven); venous thrombi are almost invariably occlusive and largely coagulation-cascade driven, with platelets playing a secondary role.'},
+  {f:'How does a thrombus become an embolus?', b:'Its propagating portion is poorly attached and prone to fragmentation, generating a detached embolus.'},
+  {f:'Describe the process of "organization and recanalization" of a thrombus', b:'The thrombus induces inflammation and fibrosis; it may eventually recanalize to re-establish some flow, or become incorporated into a thickened vessel wall.'},
+  {f:'List the seven types of embolism mentioned in the lecture', b:'Thromboembolism, fat/marrow embolism, bacterial embolism, air embolism, amniotic fluid embolism, tumor cell embolism, and foreign body embolism.'},
+  {f:'Why do only a minority of patients with fat embolism show clinical findings?', b:'While fat embolism occurs in up to 90% of severe skeletal injuries, fewer than 10% develop clinical findings, implying most emboli are subclinical.'},
+  {f:'What clinical features characterize air embolism (decompression sickness)?', b:'Painful muscle cramps, respiratory insufficiency, neurological symptoms, gas bubbles in muscle/soft tissue/joints causing pain, and focal ischemia to brain and heart.'},
+  {f:'What is the proposed source of material in amniotic fluid embolism?', b:'Epithelial squamous cells shed from fetal skin, lanugo hair, fat from vernix, and mucin from the GI tract entering the pulmonary microcirculation.'},
+  {f:'What serious coagulation complication is associated with amniotic fluid embolism?', b:'Disseminated intravascular coagulation (DIC).'},
+  {f:'Differentiate pulmonary embolism from systemic thromboembolism', b:'Pulmonary embolism occludes the pulmonary arterial tree from venous emboli; systemic thromboembolism involves emboli traveling within arterial circulation and impacting systemic arteries.'},
+  {f:'Why is DVT considered the leading source of pulmonary embolism?', b:'DVT of the lower legs is the most common cause of venous thrombi, and venous emboli travel to obstruct the pulmonary arterial circulation.'},
+  {f:'Besides thrombotic/embolic events, name two other causes of infarction', b:'Local vasospasm and extrinsic compression (or hemorrhage within a plaque, torsion/traumatic rupture).'},
+  {f:'Why are the testis and ovary particularly prone to venous-thrombosis infarcts?', b:'They have a single venous outflow, so venous occlusion alone can cause infarction.'},
+  {f:'Explain the pyramid shape of a white infarct', b:'The apex points toward the occluded artery (site of obstruction) while the base lies at the periphery of the tissue.'},
+  {f:'Why do red infarcts occur in loose organs with dual circulation?', b:'The loose tissue architecture allows erythrocytes to seep in and accumulate after venous occlusion, aided by the second (dual) blood supply that keeps blood entering the area.'},
+  {f:'Name three ways a septic infarct can develop', b:'Bacterial vegetation fragments, microbial seeding of necrotic tissue, or an infarct converting into an abscess.'},
+  {f:'How does dual versus single blood supply affect vulnerability to infarction?', b:'Organs with dual blood supply are less vulnerable to infarction than organs with a single blood supply.'},
+  {f:'Why does the rate of vascular occlusion affect infarct size?', b:'Slowly developing occlusion allows more time for alternate perfusion pathways (collaterals) to develop, reducing infarct severity.'},
+  {f:'Describe the two constituents of a mature atheromatous plaque', b:'A lipid core from necrotic foam cells (lipid-laden macrophages), and a connective tissue matrix/fibrous cap from smooth muscle cells that migrated from the media into the intima.'},
+  {f:'What happens pathologically when an atheromatous plaque ruptures?', b:'The luminal thrombus that forms communicates with the underlying necrotic lipid core.'},
+  {f:'How does a fibrocalcific plaque differ from a plaque with a large necrotic core?', b:'A fibrocalcific plaque is collagen-rich with large areas of calcification and few cells; a necrotic core may still be present in old plaques.'},
+  {f:'List at least five risk factors for coronary heart disease', b:'Tobacco smoke, high blood cholesterol, high blood pressure, physical inactivity, obesity, diabetes mellitus, alcohol, stress, poor diet, and age (any five).'},
+  {f:'What combination of findings is required to diagnose acute myocardial infarction?', b:'A rise/fall of cardiac biomarkers (preferably troponin) plus at least one of: ischemic symptoms, new ST\u2013T changes/LBBB, pathological Q waves, imaging evidence of new wall motion abnormality, or intracoronary thrombus on angiography/autopsy.'},
+  {f:'Explain the pathophysiological chain in cardiogenic pulmonary oedema', b:'Increased pulmonary wedge pressure raises pulmonary venous and microvascular pressure, causing rapid fluid transudation into the lungs without time for lymphatic compensation.'},
+  {f:'How does non-cardiogenic pulmonary oedema differ mechanistically from cardiogenic oedema?', b:'It results from a damaged, leaky alveolar-capillary membrane allowing protein and water into the interstitium, with a normal (not elevated) pulmonary capillary wedge pressure.'},
+  {f:'Name three causes of ARDS-related pulmonary oedema', b:'Sepsis, DIC, and inhaled toxins (or radiation pneumonia, high oxygen concentrations, severe trauma).'},
+  {f:'Under what circumstance can re-expansion pulmonary oedema occur?', b:'After re-expansion of a pneumothorax, or after removal of more than about 1.0\u20131.5 L of pleural fluid.'},
+  {f:'What is the proposed pathophysiology of narcotic-overdose pulmonary oedema?', b:'Unknown mechanism, but believed to involve direct toxicity, hypoxia, hyperventilation, or cerebral oedema, typically within 2 hours of injection.'}
+],
+hard: [
+  {f:'Why do ICF sodium and chloride stay low while ECF sodium, chloride, and bicarbonate stay high?', b:'This gradient is the electrolyte pattern maintained across living membranes (cell wall, vascular endothelium) that regulate fluid/electrolyte exchange between the compartments.'},
+  {f:'Why does plasma have a higher protein content than interstitial fluid despite both being part of the extracellular compartment?', b:'The vascular endothelium selectively restricts protein movement out of the vessel while permitting water/electrolyte exchange, keeping plasma protein concentrated relative to interstitial fluid.'},
+  {f:'A patient has facial flushing after emotional stress alongside exercise-induced limb hyperemia. Are these mechanistically the same phenomenon?', b:'Both are active hyperemia (increased inflow), but blushing is neurogenic/hormonal, while exercise hyperemia is functional, driven by increased oxygen demand causing local vasodilation.'},
+  {f:'Why can passive hyperemia (congestion) occur "even without evidence of endothelial injury," whereas active hyperemia never causes cyanosis?', b:'Passive hyperemia results purely from diminished venous outflow (a flow phenomenon), independent of vessel wall injury, leading to stagnant deoxygenated blood and cyanosis; active hyperemia involves increased oxygenated inflow, so no cyanosis develops.'},
+  {f:'A cirrhotic patient develops ascites through portal congestion. Classify this congestion by both distribution and chronicity', b:'It is a local (not systemic) venous congestion, and typically chronic given cirrhosis develops gradually.'},
+  {f:'Distinguish the mechanism producing systemic venous congestion in right heart failure from that in pulmonary fibrosis, even though both are "systemic congestion"', b:'Right heart failure causes systemic congestion via a failing pump raising systemic venous pressure directly, while pulmonary fibrosis/emphysema cause it indirectly by interfering with pulmonary blood flow, which backs up into the right heart and systemic veins.'},
+  {f:'A patient with congestive heart failure has both elevated venous pressure and secondary hyperaldosteronism from reduced renal perfusion. Explain how these compound to worsen oedema', b:'Reduced effective arterial blood volume activates the intrinsic renal/extra-renal (aldosterone) sodium-retaining mechanisms, expanding plasma volume, which further raises venous/capillary hydrostatic pressure already elevated by right ventricular failure \u2014 a vicious cycle.'},
+  {f:'Why does nephrotic syndrome sometimes cause generalized rather than localized oedema, unlike DVT?', b:'Nephrotic syndrome lowers plasma oncotic pressure systemically (via albuminuria), affecting capillaries throughout the body, whereas DVT causes only a local rise in hydrostatic pressure confined to the affected limb.'},
+  {f:'Contrast the specific gravity and protein content expected in oedema fluid from nephrotic syndrome versus inflammatory oedema', b:'Nephrotic (oncotic-pressure driven) oedema fluid is a low-protein transudate with lower specific gravity, whereas inflammatory oedema is a protein-rich exudate with specific gravity ~1.015\u20131.020.'},
+  {f:'A breast cancer patient develops arm lymphoedema after axillary node dissection. Is this pitting or non-pitting, and why?', b:'Non-pitting \u2014 lymphatic obstruction causes protein-rich fluid accumulation and eventual fibrosis, which does not readily pit on pressure, unlike hydrostatic/oncotic oedema.'},
+  {f:'Explain why ADH release complements, rather than substitutes for, the sodium-retaining mechanisms in oedema formation', b:'Sodium retention (via intrinsic renal or aldosterone-driven extra-renal mechanisms) establishes the osmotic driving force, while ADH governs water retention/concentration, so both must act together to expand extracellular fluid volume and produce oedema.'},
+  {f:'A patient on a calcium channel blocker develops leg oedema without heart failure or renal disease. What mechanism is most likely responsible?', b:'Medication-induced oedema \u2014 calcium channel blockers are listed as a direct cause of oedema, independent of cardiac or renal pathophysiology.'},
+  {f:'A patient with cirrhotic ascites and early right heart failure develops worsening abdominal distension. Which two distinct oedema-forming pressures are elevated simultaneously?', b:'Portal (local hydrostatic) venous pressure from cirrhosis and systemic venous pressure from right heart failure, compounding the reduced oncotic pressure from cirrhotic hypoalbuminemia.'},
+  {f:'A patient with atrial fibrillation develops a left atrial mural thrombus while a bedridden postoperative patient develops calf DVT. Explain how each fits Virchow\u2019s triad differently', b:'The atrial thrombus mainly reflects abnormal blood flow (stasis/turbulence in a poorly contracting atrium); the calf DVT reflects stasis from immobility plus a hypercoagulable postoperative state \u2014 different triad components dominate in each case.'},
+  {f:'Why does antithrombin III, protein C, or protein S deficiency predispose specifically to venous rather than arterial thrombosis?', b:'These are natural anticoagulant deficiencies increasing hypercoagulability; venous thrombosis depends more on coagulation cascade activation (platelets secondary) than arterial thrombosis, which depends more on platelet/endothelial injury mechanisms.'},
+  {f:'Explain why arterial thrombi propagate retrograde while venous thrombi propagate with the flow, yet both move toward the heart', b:'Arterial thrombi are anchored distally and grow backward (upstream) toward the heart along the arterial tree, while venous thrombi extend downstream with the flow, which in veins runs toward the heart \u2014 so both net toward the heart.'},
+  {f:'Why is thrombolytic therapy most effective when given early in acute myocardial infarction?', b:'Fibrinolytic activity (e.g. streptokinase, urokinase) works best while fibrin is still in monomeric form, which occurs early before extensive cross-linking and organization.'},
+  {f:'A patient develops infective endocarditis with large friable vegetations. How does this differ from ordinary mural thrombus formation?', b:'Vegetations form from bacterial/fungal blood-borne infection causing valve damage plus superimposed thrombotic material \u2014 combining infection with thrombosis \u2014 whereas ordinary mural thrombi form purely from flow/coagulation abnormalities.'},
+  {f:'Why might a thrombus that undergoes "organization" but not "recanalization" still impair organ function long-term?', b:'Without recanalization, the vessel remains permanently obliterated by fibrous tissue rather than regaining luminal flow, leaving chronic vascular insufficiency.'},
+  {f:'Why are hemodynamic stress in hypertension and ulcerated atherosclerotic plaques grouped together as causes of thrombosis?', b:'Both ultimately produce endothelial injury \u2014 hypertension via mechanical shear stress, ulcerated plaques via physical disruption of the endothelial surface \u2014 converging on the same triad component.'},
+  {f:'A trauma patient with a femur fracture develops sudden dyspnea and confusion 24\u201348 hours later. What complication should be suspected, and why the delay?', b:'Fat embolism syndrome \u2014 fat embolism is common after long bone fractures (90% of severe skeletal injuries) but clinical findings appear in fewer than 10%, often after a delay as fat droplets provoke inflammatory/microvascular effects.'},
+  {f:'Why is a diver at risk of both painful joint symptoms and neurological deficits after rapid ascent?', b:'Decompression sickness releases dissolved nitrogen as gas bubbles; bubbles in muscle/soft tissue/joints cause pain ("the bends"), while bubbles causing focal ischemia in the brain produce neurological symptoms \u2014 both from air embolism needing >100 cc of air.'},
+  {f:'A peripartum patient develops sudden dyspnea, cyanosis, hypotensive shock, seizures, and DIC. Explain the proposed source and why DIC occurs', b:'Amniotic fluid embolism \u2014 fetal squamous cells, lanugo hair, vernix fat, and GI mucin enter the maternal pulmonary circulation, triggering a severe reaction and consumptive coagulopathy (DIC), with pulmonary oedema and ~80% mortality.'},
+  {f:'Why do most arterial emboli originate from the heart rather than from arteries themselves?', b:'80\u201385% of arterial emboli arise from cardiac sources (e.g. mural thrombi, vegetations), since the heart is a common thrombus site that dislodges into the systemic arterial circulation; arterial-wall sources account for the minority.'},
+  {f:'Why is pulmonary embolism, not systemic thromboembolism, the "most common and fatal form" of venous thromboembolism?', b:'Venous thromboemboli (typically from lower-limb DVT) travel via the venous system directly to the right heart and lodge in the pulmonary arterial tree, making pulmonary embolism the natural, most frequent endpoint of venous thrombosis.'},
+  {f:'Why would a small venous thrombus fragment be more dangerous to the lungs than to peripheral tissues?', b:'All venous return converges through the right heart into the pulmonary arterial tree, so even a small embolus can obstruct pulmonary vessels \u2014 the first capillary bed any venous embolus encounters.'},
+  {f:'Why might a myocardial infarct be smaller than expected despite complete coronary occlusion, if the occlusion developed gradually over years?', b:'Slow, progressive occlusion (as in chronic atherosclerosis) allows time for collateral (alternate perfusion) pathways to develop, limiting the extent of ischemic necrosis compared with sudden occlusion.'},
+  {f:'A patient with testicular torsion develops infarction without any thrombus or embolus. How does this fit the definition of infarction?', b:'Infarction is defined broadly as ischemic necrosis from occlusion of arterial supply or venous drainage; torsion is explicitly listed among the non-thrombotic/embolic causes (with vasospasm, extrinsic compression, haemorrhage within a plaque).'},
+  {f:'Why would an infarct in a well-ventilated patient be smaller than in a hypoxic patient, given identical vascular occlusion?', b:'Blood oxygen content (affected by ventilation) is one of the factors influencing infarct development; better oxygenation of residual/collateral blood flow can reduce the degree of ischemic tissue damage.'},
+  {f:'Explain why the spleen typically produces a white infarct while the lung typically produces a red infarct from similar occlusive events', b:'The spleen is a solid organ with no dual arterial blood supply, producing a pale, erythrocyte-poor coagulative (white) infarct, whereas the lung has dual circulation and loose parenchyma, allowing blood to seep in and produce a haemorrhagic (red) infarct.'},
+  {f:'How can an infarct predispose to secondary infection, converting it into a septic infarct?', b:'Necrotic, poorly perfused infarcted tissue is a favourable environment for microbial seeding; bacteria (e.g. from vegetation fragments) can colonize the necrotic tissue, or the infarct can itself evolve into an abscess.'},
+  {f:'Why is myocardium far more tolerant of transient ischemia (20\u201330 min) than neurons (3\u20134 min)?', b:'These figures reflect differing tissue vulnerability to hypoxia \u2014 myocardium withstands longer ischemic intervals before irreversible injury than the highly oxygen-dependent neurons.'},
+  {f:'A patient has elevated troponin but a normal ECG, no chest pain, and no imaging performed. Does this alone establish MI?', b:'Yes \u2014 the criteria require a rise/fall of biomarkers plus at least ONE supporting criterion; here, biomarker rise/fall alone without any of the five listed supporting features would NOT be sufficient, so additional clinical correlation is required.'},
+  {f:'Explain the cellular transformation that converts a smooth muscle cell into a contributor of the plaque\u2019s fibrous cap', b:'Smooth muscle cells migrate from the media into the intima, proliferate, and change their phenotype, forming the connective tissue matrix that becomes the fibrous capsule around the lipid core.'},
+  {f:'Why might a fibrocalcific plaque be more clinically "stable" than one with a large lipid core?', b:'A fibrocalcific plaque is collagen-rich with extensive calcification and few cells \u2014 structurally more solid \u2014 whereas a lipid-core-dominant plaque is prone to rupture, exposing the necrotic core and forming a luminal thrombus.'},
+  {f:'A patient has multiple risk factors (smoking, obesity, diabetes, hypertension) but no chest pain. Does this alone establish coronary artery disease?', b:'No \u2014 risk factors increase the likelihood of developing atherosclerosis, but the disease itself is defined by actual atheromatous narrowing/occlusion of coronary vessels, not merely the presence of risk factors.'},
+  {f:'A patient develops pulmonary oedema after large-volume thoracentesis. Is this cardiogenic or non-cardiogenic, and why?', b:'Non-cardiogenic \u2014 re-expansion pulmonary oedema occurs after removal of more than ~1.0\u20131.5 L of pleural fluid, related to lung re-expansion injury rather than elevated pulmonary capillary wedge pressure.'},
+  {f:'Why is hypoalbuminemia, despite lowering plasma oncotic pressure, explicitly stated NOT to cause pulmonary oedema?', b:'The material explicitly excludes hypoalbuminemia as a cause, distinguishing pulmonary oedema pathophysiology (wedge pressure or membrane damage) from peripheral oedema pathophysiology (oncotic pressure).'},
+  {f:'A heroin overdose patient develops pulmonary oedema within an hour of injection with normal pulmonary wedge pressure. Which category and mechanisms apply?', b:'Non-cardiogenic pulmonary oedema from narcotic overdose; proposed mechanisms include direct toxicity, hypoxia, hyperventilation, or cerebral oedema, typically within 2 hours of injection.'},
+  {f:'Why can severe trauma cause pulmonary oedema through a completely different mechanism than acute left ventricular failure?', b:'Severe trauma can trigger ARDS, a non-cardiogenic mechanism where the alveolar-capillary membrane becomes damaged and leaky (normal wedge pressure), whereas left ventricular failure causes cardiogenic oedema through elevated pulmonary capillary wedge pressure, unrelated to membrane integrity.'}
+]
+};
+let fcLevel = 'easy';
+let flashcards = flashcardsByLevel[fcLevel];
+let fcOrder = flashcards.map((_,i)=>i);
+let fcIndex = 0;
+const fcCard = document.getElementById('fcCard');
+const fcFront = document.getElementById('fcFront');
+const fcBack = document.getElementById('fcBack');
+const fcCount = document.getElementById('fcCount');
+function renderFlashcard(){
+  const card = flashcards[fcOrder[fcIndex]];
+  fcCard.classList.remove('flipped');
+  fcFront.innerHTML = card.f;
+  fcBack.innerHTML = card.b;
+  fcCount.textContent = `Card ${fcIndex+1} / ${flashcards.length}`;
+}
+fcCard.addEventListener('click',()=>fcCard.classList.toggle('flipped'));
+document.getElementById('fcNext').addEventListener('click',()=>{
+  fcIndex = (fcIndex+1) % fcOrder.length;
+  renderFlashcard();
+});
+document.getElementById('fcPrev').addEventListener('click',()=>{
+  fcIndex = (fcIndex-1+fcOrder.length) % fcOrder.length;
+  renderFlashcard();
+});
+document.getElementById('fcShuffle').addEventListener('click',()=>{
+  for(let i=fcOrder.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [fcOrder[i],fcOrder[j]]=[fcOrder[j],fcOrder[i]];
+  }
+  fcIndex = 0;
+  renderFlashcard();
+});
+document.getElementById('fcReset').addEventListener('click',()=>{
+  fcOrder = flashcards.map((_,i)=>i);
+  fcIndex = 0;
+  renderFlashcard();
+});
+document.querySelectorAll('#fcLevelTabs .level-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#fcLevelTabs .level-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    fcLevel = btn.dataset.level;
+    flashcards = flashcardsByLevel[fcLevel];
+    fcOrder = flashcards.map((_,i)=>i);
+    fcIndex = 0;
+    renderFlashcard();
+  });
+});
+renderFlashcard();
+
+/* ============ QUIZ ============ */
+const quizBankByLevel = {
+easy: [
+  {q:'Total body water accounts for what percentage of body weight?', correct:'60%', wrong:['33%','27%','80%']},
+  {q:'Intracellular fluid makes up what percentage of body weight?', correct:'33%', wrong:['60%','27%','45%']},
+  {q:'Extracellular fluid makes up what percentage of body weight?', correct:'27%', wrong:['33%','60%','15%']},
+  {q:'Which fluid compartment has a high concentration of sodium, chloride, and bicarbonate?', correct:'Extracellular fluid', wrong:['Intracellular fluid','Lymph only','Cerebrospinal fluid only']},
+  {q:'Hyperemia and congestion refer to a localized increase in the volume of blood within which structures?', correct:'Dilated vessels of an organ or tissue', wrong:['Lymphatic channels','Bone marrow sinusoids','Cerebrospinal fluid spaces']},
+  {q:'Active hyperemia results from', correct:'Arterial and arteriolar dilatation (increased inflow)', wrong:['Impaired venous drainage','Lymphatic blockage','Decreased cardiac output']},
+  {q:'Passive hyperemia (venous congestion) results from', correct:'Diminished venous outflow', wrong:['Increased arterial inflow','Increased lymphatic drainage','Increased plasma oncotic pressure']},
+  {q:'A rapidly developing episode of hyperemia or congestion is termed', correct:'Acute', wrong:['Chronic','Subacute','Recurrent']},
+  {q:'Exercise (functional) hyperemia occurs due to', correct:'Increased oxygen demand causing vasodilation', wrong:['Decreased oxygen demand','Venous obstruction','Lymphatic stasis']},
+  {q:'Which of the following is listed as a cause of active hyperemia?', correct:'Fever', wrong:['Deep vein thrombosis','Nephrotic syndrome','Prosthetic heart valve']},
+  {q:'Portal venous obstruction in liver cirrhosis is an example of', correct:'Local venous congestion', wrong:['Systemic venous congestion','Active hyperemia','Lymphoedema']},
+  {q:'Oedema is best defined as', correct:'Abnormal accumulation of free fluid in interstitial spaces and serous cavities', wrong:['Accumulation of blood within dilated vessels','Formation of a clot within a vessel','Detachment of a mass carried by the blood']},
+  {q:'Free fluid accumulating in the peritoneal cavity is called', correct:'Ascites', wrong:['Hydrothorax','Hydropericardium','Anasarca']},
+  {q:'Free fluid accumulating in the pleural cavity is called', correct:'Hydrothorax', wrong:['Ascites','Hydropericardium','Lymphoedema']},
+  {q:'Free fluid accumulating in the pericardial cavity is called', correct:'Hydropericardium', wrong:['Ascites','Hydrothorax','Anasarca']},
+  {q:'Pitting oedema is demonstrated by', correct:'A depression left after momentary finger pressure', wrong:['No change with finger pressure','Skin discoloration only','Increased skin temperature']},
+  {q:'Which of the following is an example of non-pitting oedema?', correct:'Myxoedema', wrong:['Congestive heart failure oedema','Nephrotic syndrome oedema','DVT-related oedema']},
+  {q:'The protein most responsible for maintaining plasma oncotic (colloid osmotic) pressure is', correct:'Albumin', wrong:['Fibrinogen','Globulin','Haemoglobin']},
+  {q:'Reduced plasma oncotic pressure classically occurs in', correct:'Nephrotic syndrome', wrong:['Congestive heart failure','Deep vein thrombosis','Filariasis']},
+  {q:'Localized oedema due to obstruction of lymphatic outflow is called', correct:'Lymphoedema', wrong:['Anasarca','Ascites','Hydrothorax']},
+  {q:'Generalized oedema involving the entire body is termed', correct:'Anasarca', wrong:['Ascites','Lymphoedema','Hydrothorax']},
+  {q:'Which of the following medications is listed as a cause of oedema?', correct:'Corticosteroids', wrong:['Antibiotics','Antihistamines','Beta-blockers']},
+  {q:'Thrombosis is defined as', correct:'Formation of a blood clot in the intravascular compartment obstructing blood flow', wrong:['Accumulation of free fluid in tissue','Detachment of a mass carried by blood','Ischemic necrosis of tissue']},
+  {q:'A thrombus is composed of', correct:'Fibrin, platelets, red blood cells, and white blood cells', wrong:['Only fibrin and water','Only red blood cells','Only platelets and plasma']},
+  {q:'Virchow\u2019s triad includes endothelial injury, hypercoagulability, and', correct:'Altered blood flow (turbulence/stasis)', wrong:['Increased plasma oncotic pressure','Lymphatic obstruction','Reduced haemoglobin']},
+  {q:'Endothelial injury is of major significance in forming which type of thrombi?', correct:'Arterial and cardiac thrombi', wrong:['Venous thrombi only','Capillary thrombi only','No thrombi']},
+  {q:'Which pattern of blood flow is most associated with venous thrombosis?', correct:'Stasis', wrong:['Turbulence','Increased velocity','Laminar flow']},
+  {q:'Which of the following is a hereditary cause of hypercoagulability?', correct:'Deficiency of protein C', wrong:['Excess albumin','Excess haemoglobin','Excess aldosterone']},
+  {q:'A thrombus located in a heart chamber or the aortic lumen is called', correct:'A mural thrombus', wrong:['A vegetation','A phlebothrombus','An embolus']},
+  {q:'A thrombus on a heart valve is called', correct:'A vegetation', wrong:['A mural thrombus','A phlebothrombus','A septic infarct']},
+  {q:'Which of the following is NOT one of the four fates of a thrombus?', correct:'Calcification', wrong:['Propagation','Dissolution','Embolization']},
+  {q:'Streptokinase and urokinase act on a thrombus mainly by promoting', correct:'Dissolution', wrong:['Propagation','Organization','Calcification']},
+  {q:'Prolonged bed-rest and immobilization are examples of', correct:'Acquired risk factors for thrombosis', wrong:['Hereditary causes of thrombophilia','Causes of active hyperemia','Causes of white infarction']},
+  {q:'An embolus is best described as', correct:'A detached intravascular solid, liquid, or gaseous mass carried by the blood', wrong:['A fixed clot attached to the vessel wall','An area of ischemic necrosis','An abnormal accumulation of interstitial fluid']},
+  {q:'Approximately what percentage of emboli are dislodged thrombi?', correct:'99%', wrong:['50%','75%','25%']},
+  {q:'Fat embolism most commonly follows', correct:'Fractures of long bones', wrong:['Deep vein thrombosis','Valve infection','Chronic hypertension']},
+  {q:'Decompression sickness is also known as', correct:'"The bends" or "the chokes"', wrong:['"The shakes"','"The stitch"','"The wheeze"']},
+  {q:'A clinically significant air embolism generally requires an excess of', correct:'100 cc of air', wrong:['5 cc of air','1 litre of air','10 cc of air']},
+  {q:'Amniotic fluid embolism has an approximate mortality rate of', correct:'80%', wrong:['10%','30%','99%']},
+  {q:'Amniotic fluid embolism can precipitate which coagulation disorder?', correct:'Disseminated intravascular coagulation (DIC)', wrong:['Haemophilia A','Von Willebrand disease','Protein C deficiency']},
+  {q:'The most common source of venous thromboemboli is', correct:'Deep vein thrombosis of the lower legs', wrong:['Cardiac vegetations','Fat from bone marrow','Amniotic fluid']},
+  {q:'Infarction is defined as', correct:'An area of ischemic necrosis from occlusion of arterial supply or venous drainage', wrong:['A localized increase in blood volume','An abnormal accumulation of interstitial fluid','A detached mass carried by the blood']},
+  {q:'Approximately what percentage of infarcts result from thrombotic or embolic events?', correct:'99%', wrong:['50%','70%','85%']},
+  {q:'A white (anaemic) infarct results from', correct:'Arterial occlusion', wrong:['Venous occlusion','Lymphatic obstruction','Bacterial seeding']},
+  {q:'White infarcts characteristically occur in which organs?', correct:'Solid organs without dual blood supply, e.g. heart, spleen, kidney', wrong:['Loose organs with dual circulation, e.g. lung, liver','Lymphatic organs only','Endocrine glands only']},
+  {q:'A red (haemorrhagic) infarct is due to', correct:'Venous occlusion', wrong:['Arterial occlusion only','Lymphatic obstruction','Air embolism']},
+  {q:'Red infarcts are typical in which organs?', correct:'Lung, liver, GIT, and brain', wrong:['Heart, spleen, kidney','Testis and ovary only','Skin only']},
+  {q:'Neurons can typically tolerate ischemia for about', correct:'3\u20134 minutes', wrong:['20\u201330 minutes','1 hour','10 seconds']},
+  {q:'Myocardium can typically tolerate ischemia for about', correct:'20\u201330 minutes', wrong:['3\u20134 minutes','2 hours','1 minute']},
+  {q:'Coronary artery disease is almost always caused by', correct:'Atherosclerosis', wrong:['Vasculitis','Amyloidosis','Congenital malformation']},
+  {q:'The lipid core of an atheromatous plaque is mainly derived from', correct:'Necrotic foam cells (macrophages)', wrong:['Smooth muscle cells only','Endothelial cells only','Red blood cells only']},
+  {q:'The preferred biomarker for diagnosing myocardial infarction is', correct:'Cardiac troponin', wrong:['Serum albumin','C-reactive protein only','Total cholesterol']},
+  {q:'Which ECG finding supports a diagnosis of MI?', correct:'New pathological Q waves', wrong:['Normal sinus rhythm','Shortened PR interval only','Isolated sinus tachycardia']},
+  {q:'Which of the following is a listed risk factor for coronary heart disease?', correct:'Tobacco smoke', wrong:['High plasma albumin','Low blood pressure','High physical activity']},
+  {q:'When coronary blood flow is completely cut off, the result is', correct:'A heart attack', wrong:['Reactive hyperemia','Lymphoedema','Ascites']},
+  {q:'Pulmonary oedema is defined as', correct:'Abnormal accumulation of fluid in the air sacs and parenchyma of the lungs', wrong:['Accumulation of fluid in the peritoneal cavity','A clot within the pulmonary artery','Ischemic necrosis of lung tissue']},
+  {q:'Cardiogenic pulmonary oedema results from', correct:'Increased pulmonary (wedge) capillary pressure', wrong:['A damaged alveolar-capillary membrane with normal wedge pressure','Hypoalbuminemia alone','Lymphatic obstruction in the lung']},
+  {q:'According to the material, hypoalbuminemia', correct:'Does NOT cause pulmonary oedema', wrong:['Is the main cause of cardiogenic pulmonary oedema','Directly damages the alveolar-capillary membrane','Is required for ARDS to occur']},
+  {q:'Re-expansion pulmonary oedema can occur after', correct:'Removal of more than about 1.0\u20131.5 L of pleural fluid', wrong:['A single small-volume thoracentesis under 200 mL','Routine chest auscultation','Mild exercise']},
+  {q:'Narcotic-overdose pulmonary oedema is classically linked to', correct:'Heroin or methadone', wrong:['Aspirin','Metformin','Amoxicillin']}
+],
+medium: [
+  {q:'If total body water is 60% of body weight and extracellular fluid is 27%, intracellular fluid must be approximately', correct:'33%', wrong:['27%','60%','87%']},
+  {q:'Which two living membranes are highlighted as key regulators of fluid/electrolyte exchange in homeostasis?', correct:'Cell wall and vascular endothelium', wrong:['Basement membrane and pleura','Peritoneum and pericardium','Alveolar membrane and myocardium']},
+  {q:'Compared with interstitial fluid, plasma has', correct:'Higher protein content', wrong:['Lower protein content','Equal protein content','No protein at all']},
+  {q:'Which statement correctly distinguishes active from passive hyperemia?', correct:'Active hyperemia is increased inflow; passive hyperemia is diminished outflow', wrong:['Active hyperemia is diminished outflow; passive is increased inflow','Both result from diminished outflow','Both result from increased inflow']},
+  {q:'A goiter causing localized increased blood flow to the thyroid is classified under', correct:'Active hyperemia', wrong:['Passive hyperemia','Lymphoedema','Septic infarction']},
+  {q:'In chronic venous congestion, tissue turns blue-red primarily because of', correct:'Accumulation of deoxygenated haemoglobin', wrong:['Accumulation of bilirubin','Increased arterial oxygen saturation','Increased plasma albumin']},
+  {q:'Right-sided and left-sided heart failure typically cause which type of congestion?', correct:'Systemic (general) venous congestion', wrong:['Local venous congestion','Arterial hyperemia','Lymphatic obstruction']},
+  {q:'Pulmonary fibrosis and emphysema contribute to systemic venous congestion mainly by', correct:'Interfering with pulmonary blood flow, backing pressure into the right heart', wrong:['Directly obstructing the portal vein','Causing lymphatic blockage in the liver','Increasing plasma oncotic pressure']},
+  {q:'Impaired venous outflow in deep venous thrombosis causes oedema through', correct:'Increased local hydrostatic pressure', wrong:['Reduced plasma oncotic pressure','Lymphatic obstruction','Sodium retention alone']},
+  {q:'Congestive heart failure affecting right ventricular function causes oedema mainly through', correct:'Generalized increased hydrostatic pressure', wrong:['Reduced plasma oncotic pressure','Lymphatic obstruction','Increased vascular permeability alone']},
+  {q:'Nephrotic syndrome causes oedema mainly through', correct:'Loss of albumin, reducing plasma oncotic pressure', wrong:['Increased hydrostatic pressure','Lymphatic obstruction','Inflammatory exudate']},
+  {q:'Elephantiasis from filariasis is an example of', correct:'Lymphoedema from lymphatic obstruction', wrong:['Cardiogenic oedema','Nephrotic oedema','Inflammatory exudate']},
+  {q:'Axillary node dissection during breast cancer surgery can cause arm oedema through', correct:'Lymphatic obstruction', wrong:['Increased hydrostatic pressure','Reduced plasma albumin','Sodium retention']},
+  {q:'Roughly what percentage of filtered sodium is reabsorbed at the proximal convoluted tubule?', correct:'80%', wrong:['33%','60%','15%']},
+  {q:'The extra-renal mechanism of sodium retention primarily involves secretion of', correct:'Aldosterone', wrong:['Antidiuretic hormone only','Renin only','Cortisol only']},
+  {q:'Inflammatory oedema fluid (exudate) typically has a specific gravity of about', correct:'1.015\u20131.020', wrong:['1.000\u20131.005','1.030\u20131.040','0.900\u20130.950']},
+  {q:'Which drug class is listed as a cause of medication-induced oedema?', correct:'Calcium channel blockers', wrong:['Antibiotics','Antihistamines','Statins']},
+  {q:'Which of the following best illustrates hypercoagulability as a component of Virchow\u2019s triad?', correct:'Deficiency of antithrombin III', wrong:['Deep venous thrombosis from immobility','Ulcerated atherosclerotic plaque','Cardiac surgery causing endocardial injury']},
+  {q:'Cigarette smoke is listed as an example of', correct:'An exogenous chemical agent causing vascular injury', wrong:['An endogenous chemical agent','A hereditary hypercoagulability factor','A mechanism of lymphatic obstruction']},
+  {q:'Hypercholesterolemia and endotoxins are examples of', correct:'Endogenous chemical agents causing vascular injury', wrong:['Exogenous chemical agents','Hereditary thrombophilia factors','Causes of red infarction']},
+  {q:'Margination and pavementing of platelets near the endothelium occurs when', correct:'Blood flow slows down (stasis)', wrong:['Blood flow speeds up (turbulence)','Endothelial injury alone occurs without flow change','Hypercoagulability alone occurs without flow change']},
+  {q:'Arterial thrombi are typically described as', correct:'A friable meshwork of platelets, fibrin, erythrocytes, and degenerating leukocytes', wrong:['An entirely coagulation cascade-driven, platelet-poor clot','A collection of only red blood cells','A collection of only white blood cells']},
+  {q:'Venous thrombosis (phlebothrombosis) is largely the result of', correct:'Activation of the coagulation cascade, with platelets playing a secondary role', wrong:['Platelet activation, with coagulation playing a secondary role','Lymphatic obstruction','Increased plasma oncotic pressure']},
+  {q:'Bacterial or fungal blood-borne infection causing valve damage with thrombotic masses describes', correct:'Infective endocarditis (vegetations)', wrong:['Phlebothrombosis','White infarction','Fat embolism']},
+  {q:'Rheumatic mitral stenosis and cardiomyopathy are listed as', correct:'Predisposing clinical conditions for hypercoagulability/thrombosis', wrong:['Hereditary causes of thrombophilia','Causes of active hyperemia','Types of embolism']},
+  {q:'Which sequence correctly reflects the four possible fates of a thrombus?', correct:'Propagation, embolization, dissolution, organization and recanalization', wrong:['Dissolution, propagation, calcification, embolization','Embolization, calcification, propagation, dissolution','Recanalization, calcification, dissolution, propagation']},
+  {q:'Which of the following is classified as a type of embolism in the lecture?', correct:'Tumor cell embolism', wrong:['White infarction','Reactive hyperemia','Anasarca']},
+  {q:'The clinical findings of fat embolism syndrome occur in what proportion of severe skeletal injury cases, despite fat embolism itself occurring more frequently?', correct:'Fewer than 10%', wrong:['More than 90%','Exactly 50%','Nearly 100%']},
+  {q:'Which combination of symptoms best characterizes decompression sickness?', correct:'Painful muscle cramps, respiratory insufficiency, and neurological symptoms', wrong:['Fever, rash, and joint swelling only','Jaundice and hepatomegaly','Polyuria and polydipsia']},
+  {q:'In amniotic fluid embolism, the material entering the pulmonary circulation includes', correct:'Fetal squamous cells, lanugo hair, vernix fat, and GI mucin', wrong:['Only red blood cells','Only bacteria','Only air bubbles']},
+  {q:'Approximately what fraction of deliveries are complicated by amniotic fluid embolism?', correct:'1 in 50,000', wrong:['1 in 500','1 in 5,000','1 in 500,000']},
+  {q:'Most arterial emboli (80\u201385%) originate from', correct:'Within the heart', wrong:['Within the veins of the leg','The lymphatic system','The lungs']},
+  {q:'The most common and fatal form of venous thromboembolism is', correct:'Pulmonary embolism', wrong:['Systemic thromboembolism','Coronary thromboembolism','Cerebral thromboembolism']},
+  {q:'Which of the following is listed among the minority (non-thrombotic/embolic) causes of infarction?', correct:'Torsion or traumatic rupture', wrong:['Deep vein thrombosis','Arterial embolism','Cardiac mural thrombus']},
+  {q:'Infarcts from venous thrombosis are especially common in organs with', correct:'A single venous outflow, e.g. testis or ovary', wrong:['Dual venous outflow','No venous outflow','Only lymphatic drainage']},
+  {q:'A septic infarct can result from', correct:'Bacterial vegetation fragments seeding necrotic tissue', wrong:['Reduced plasma oncotic pressure','Increased lymphatic flow','Decreased hydrostatic pressure']},
+  {q:'Which factor determines whether an organ is more or less vulnerable to infarction from vascular occlusion?', correct:'Whether the organ has a dual or single blood supply', wrong:['The organ\u2019s total protein content','The organ\u2019s lymphatic drainage pattern','The organ\u2019s exposure to sunlight']},
+  {q:'A slowly developing arterial occlusion is generally associated with', correct:'A smaller infarct due to time for collateral pathway development', wrong:['A larger infarct due to sudden ischemia','No effect on infarct size','Immediate red infarction regardless of organ']},
+  {q:'Which of the following increases the severity of an infarct according to the listed factors?', correct:'Reduced blood oxygen content (e.g. poor ventilation)', wrong:['Dual arterial blood supply','Slow, gradual occlusion','High tissue tolerance to hypoxia']},
+  {q:'Coagulative necrosis with a pyramid shape, apex pointing to the occluded vessel, describes', correct:'A white infarct', wrong:['A red infarct','A septic infarct','Reactive hyperemia']},
+  {q:'The fibrous capsule surrounding the lipid core of an atheromatous plaque is derived from', correct:'Smooth muscle cells that migrated from the media into the intima', wrong:['Neutrophils','Foam cells alone','Erythrocytes']},
+  {q:'When a plaque ruptures, the luminal thrombus communicates with the', correct:'Underlying necrotic core', wrong:['Adventitia','Vessel lumen only, with no core contact','Myocardium directly']},
+  {q:'A fibrocalcific plaque is best described as', correct:'Collagen-rich with large areas of calcification and few cells', wrong:['Lipid-rich with a large necrotic core and many foam cells','Composed entirely of thrombus','Composed entirely of smooth muscle without collagen']},
+  {q:'Limitation of coronary blood flow causing myocardial cell starvation from lack of oxygen is termed', correct:'Ischemia', wrong:['Hyperemia','Infarction is the only correct term','Congestion']},
+  {q:'Which finding, together with a rise/fall in cardiac biomarkers, would support a diagnosis of MI?', correct:'New pathological Q waves on ECG', wrong:['A normal echocardiogram alone','A normal coronary angiogram alone','Absence of any ischemic symptoms']},
+  {q:'Cardiogenic pulmonary oedema develops due to rapid transudation of fluid into the lungs because', correct:'There is insufficient time for compensation of the pulmonary vascular bed', wrong:['The alveolar-capillary membrane is directly damaged','Plasma albumin is critically reduced','Lymphatic drainage of the lung is enhanced']},
+  {q:'Non-cardiogenic pulmonary oedema is characterized by', correct:'Alveolar fluid without elevated pulmonary capillary wedge pressure', wrong:['Elevated pulmonary capillary wedge pressure','Normal alveolar-capillary membrane','Increased plasma oncotic pressure']},
+  {q:'Which of the following is listed as an etiology of ARDS-related pulmonary oedema?', correct:'Sepsis', wrong:['Nephrotic syndrome','Filariasis','Chronic venous congestion']},
+  {q:'Re-expansion pulmonary oedema is most associated with', correct:'Rapid re-expansion of a collapsed lung or large-volume pleural fluid removal', wrong:['Chronic hypertension','Prolonged bed rest','Vitamin deficiency']},
+  {q:'Narcotic overdose pulmonary oedema typically develops', correct:'Within about 2 hours of injection', wrong:['After several weeks','Immediately upon chronic use only','Only after 24 hours']}
+],
+hard: [
+  {q:'A patient has ICF making up 33% and total body water 60% of body weight. If 5% of body weight worth of fluid shifted from ICF to ECF without changing total body water, what would the new ICF/ECF split be?', correct:'28% ICF / 32% ECF', wrong:['38% ICF / 22% ECF','33% ICF / 27% ECF (unchanged)','60% ICF / 0% ECF']},
+  {q:'Given that plasma has a higher protein content than interstitial fluid despite both belonging to the extracellular compartment, which structure best explains this difference?', correct:'The vascular endothelium, which restricts protein passage while allowing water/electrolyte exchange', wrong:['The cell membrane of erythrocytes','The renal glomerulus alone','The blood-brain barrier alone']},
+  {q:'A patient with menopausal flush and a patient exercising both show redness. What do they share pathophysiologically, distinguishing them from chronic venous congestion?', correct:'Both involve increased arterial inflow (active hyperemia) rather than diminished outflow', wrong:['Both involve diminished venous outflow','Both are caused by lymphatic obstruction','Both are examples of septic infarction']},
+  {q:'Why can chronic venous congestion occur "without evidence of endothelial injury," unlike some thrombotic conditions?', correct:'Because it results purely from impaired outflow (a flow-based cause), not from vessel wall damage', wrong:['Because congestion always requires endothelial injury','Because congestion is caused by hypercoagulability','Because congestion is a form of active hyperemia']},
+  {q:'A cirrhotic patient develops portal hypertension causing local congestion, then later right heart failure causing additional congestion. How is the combined picture best classified?', correct:'A combination of local (portal) and systemic (cardiac) venous congestion', wrong:['Purely active hyperemia','Purely lymphoedema','Purely arterial congestion']},
+  {q:'Why are "reactive hyperemia" and "passive hyperemia" used interchangeably in this material, even though "reactive" suggests a response?', correct:'Both describe congestion from diminished venous outflow rather than increased arterial inflow', wrong:['Both describe increased arterial inflow','Reactive hyperemia is a distinct third category unrelated to congestion','Passive hyperemia always requires endothelial injury']},
+  {q:'A patient with cirrhosis-related ascites and superimposed right heart failure has fluid accumulating from two simultaneously elevated hydrostatic sources. Which best identifies both?', correct:'Portal venous hydrostatic pressure (local, from cirrhosis) and systemic venous hydrostatic pressure (generalized, from heart failure)', wrong:['Only reduced oncotic pressure from cirrhosis, with no hydrostatic component','Only lymphatic obstruction, with no hydrostatic component','Only inflammatory exudation, with no hydrostatic component']},
+  {q:'A CHF patient with both elevated venous pressure and secondary hyperaldosteronism from reduced renal perfusion. Which oedema-forming mechanisms are simultaneously active?', correct:'Increased hydrostatic pressure and sodium/water retention (extra-renal mechanism via aldosterone)', wrong:['Only reduced plasma oncotic pressure','Only lymphatic obstruction','Only inflammatory exudation']},
+  {q:'Why would nephrotic syndrome oedema be expected to pit on examination, unlike lymphoedema from filariasis?', correct:'Nephrotic oedema is a low-protein fluid from low oncotic pressure that pits easily, while lymphoedema\u2019s protein-rich fluid promotes fibrosis and non-pitting oedema', wrong:['Nephrotic oedema is always non-pitting','Lymphoedema is always pitting','Neither type of oedema ever pits']},
+  {q:'Which best distinguishes oedema fluid expected in inflammation from that expected in DVT-related local hydrostatic oedema?', correct:'Inflammatory fluid is a protein-rich exudate (specific gravity ~1.015\u20131.020); DVT-related fluid is a lower-protein transudate', wrong:['Both are identical protein-rich exudates','Both are identical low-protein transudates','DVT fluid always has higher specific gravity than inflammatory fluid']},
+  {q:'A patient on a corticosteroid develops peripheral oedema. Which category best fits, distinct from cardiac, renal, or lymphatic causes?', correct:'Medication-induced oedema', wrong:['Increased hydrostatic pressure from heart failure','Reduced oncotic pressure from nephrotic syndrome','Lymphatic obstruction from carcinoma']},
+  {q:'Why does severe hemorrhage activate the intrinsic renal mechanism of sodium retention specifically?', correct:'Because that mechanism is triggered by a sudden reduction in effective arterial blood volume (hypovolemia), which occurs acutely in hemorrhage', wrong:['Because hemorrhage always increases plasma oncotic pressure','Because hemorrhage always causes lymphatic obstruction','Because hemorrhage suppresses ADH release entirely']},
+  {q:'A cancer patient develops both direct tumor-related lymphatic obstruction and post-irradiation fibrosis in the same limb. What results, and by what combined mechanism?', correct:'Lymphoedema, from both direct tumor obstruction and secondary lymphatic damage from irradiation', wrong:['Pitting oedema from increased hydrostatic pressure only','Anasarca from systemic albumin loss','Inflammatory exudate from acute infection']},
+  {q:'A postoperative, immobilized, obese smoker develops a calf DVT. How many distinct listed risk factors for hypercoagulability does this patient have?', correct:'Four (immobilization, obesity, smoking, and post-surgical risk)', wrong:['One','Two','None \u2014 DVT is unrelated to any listed risk factor']},
+  {q:'Why can stasis initiate venous thrombi "even without evidence of endothelial injury," while arterial thrombosis depends more on endothelial injury?', correct:'Venous thrombosis is driven predominantly by coagulation cascade activation under stasis, whereas arterial thrombosis depends more on exposed subendothelial matrix from vessel wall injury', wrong:['Because venous thrombi never involve coagulation factors','Because arterial thrombi never involve platelets','Because stasis and turbulence are the same phenomenon']},
+  {q:'A patient with a prosthetic heart valve develops a mural thrombus that later becomes a vegetation-like mass after a bloodstream infection. What sequence of Virchow\u2019s triad is illustrated?', correct:'Initial endothelial/valvular injury (prosthesis) followed by superimposed infection-related thrombosis', wrong:['Only hypercoagulability, with no endothelial component','Only altered blood flow, with no endothelial component','No components of Virchow\u2019s triad are involved']},
+  {q:'Why is early administration of thrombolytics more effective than late administration in acute MI?', correct:'Fibrin is still in monomeric form early, making the thrombus more susceptible to fibrinolysis before organization occurs', wrong:['Fibrin becomes monomeric only after several days','Late thrombi contain more antithrombin III','Thrombolytics work only on fully organized, recanalized thrombi']},
+  {q:'A thrombus forms in the left ventricle after an MI, and part of it later breaks off. Which fate of the thrombus has occurred?', correct:'Embolization', wrong:['Dissolution','Organization and recanalization only','Propagation only, with no fragmentation']},
+  {q:'Which combination of factors would most increase a patient\u2019s overall thromboembolic risk?', correct:'A bedridden postoperative smoker with atherosclerotic vascular disease', wrong:['A young, active, non-smoking patient with no comorbidities','A patient with only a healthy diet','A patient with normal antithrombin III, protein C, and protein S levels']},
+  {q:'Why do arterial thrombi (retrograde growth) and venous thrombi (antegrade growth) both end up propagating "toward the heart"?', correct:'Arterial thrombi grow backward (upstream) toward the heart along the arterial tree, while venous thrombi grow downstream in the direction of flow, which in veins runs toward the heart', wrong:['Because both grow in the exact same direction relative to flow','Because arterial thrombi grow away from the heart while venous thrombi grow toward it','Because direction of growth is unrelated to vascular anatomy']},
+  {q:'A long-bone fracture patient develops respiratory distress 36 hours later, despite <10% of similar patients showing clinical fat embolism findings. What does this imply?', correct:'Fat embolism is common (up to 90% of severe skeletal injuries) but usually subclinical; clinical fat embolism syndrome is comparatively rare', wrong:['Fat embolism never occurs without clinical symptoms','Fat embolism is rarer than clinically apparent fat embolism syndrome','Fat embolism only occurs after burns, never fractures']},
+  {q:'A diver who ascends too quickly develops joint pain, neurological deficits, and focal cardiac ischemia. Which unifying process explains all three findings?', correct:'Gas bubble (air) embolism affecting joints/soft tissue, brain, and heart respectively', wrong:['Three unrelated conditions occurring coincidentally','Amniotic fluid embolism','Fat embolism from bone marrow']},
+  {q:'Why is amniotic fluid embolism associated with both hypotensive shock and DIC, rather than one alone?', correct:'The embolic material triggers a severe systemic reaction causing cardiovascular collapse (shock) while also extensively activating the coagulation cascade (DIC)', wrong:['Shock and DIC are mechanistically unrelated in amniotic fluid embolism','DIC only occurs after shock resolves','Shock is caused by DIC treatment, not the embolism itself']},
+  {q:'Given that 80\u201385% of arterial emboli arise from the heart, what is the most likely embolic source in a patient with a large recent anterior MI and a new stroke?', correct:'A mural thrombus in the left ventricle', wrong:['A DVT of the leg','An amniotic fluid embolism','A fat embolism from a fracture']},
+  {q:'Why can a fragment from a DVT cause pulmonary embolism but not usually a stroke, absent a cardiac shunt?', correct:'Venous emboli travel via the right heart directly into the pulmonary arterial tree, and without a right-to-left shunt cannot cross into the systemic (arterial) circulation to reach the brain', wrong:['Venous emboli are too large to enter the lungs','Venous emboli always dissolve before reaching the lungs','Pulmonary and systemic circulations are directly connected without any heart chambers between them']},
+  {q:'A patient develops sudden dyspnea, hypotension, and cardiac arrest shortly after a large DVT is diagnosed. What is the most likely event, and why is it "the most common and fatal form" of venous thromboembolism?', correct:'Pulmonary embolism, because venous thromboemboli most frequently embolize to occlude the pulmonary arterial tree', wrong:['Systemic thromboembolism, because venous clots typically cross into the aorta','Amniotic fluid embolism, unrelated to DVT','Fat embolism, unrelated to DVT']},
+  {q:'A coronary artery occludes suddenly in one patient and slowly over years in another. What single factor best explains why the sudden-occlusion patient develops a larger infarct?', correct:'Rate of development of occlusion, allowing time for collateral (alternate perfusion) pathways in the slow case', wrong:['Difference in vascular supply type (dual vs single)','Difference in blood oxygen content only','Difference in tissue vulnerability to hypoxia only']},
+  {q:'Why might a patient with ovarian torsion develop true infarction despite no thrombus or embolus identified on pathology?', correct:'Torsion is explicitly listed as a non-thrombotic/embolic cause of infarction, along with vasospasm, extrinsic compression, and haemorrhage within a plaque', wrong:['Infarction cannot occur without a thrombus or embolus by definition','Torsion always produces a thrombus that is simply undetected','Ovarian infarction is not covered by the general definition of infarction']},
+  {q:'Which factor best explains why the spleen classically produces a white infarct while the lung produces a red infarct, given identical embolic occlusion?', correct:'The spleen has no dual arterial blood supply and dense tissue (coagulative, white infarct), while the lung has dual circulation and loose parenchyma allowing blood to seep in (red infarct)', wrong:['The spleen has dual circulation, unlike the lung','Both would appear identically white','Both would appear identically red']},
+  {q:'Which patient is at higher risk of a larger, more severe infarct: one with poor ventilation and hypoxemia, or one with normal oxygenation, given identical vascular occlusion?', correct:'The patient with poor ventilation and hypoxemia, since blood oxygen content influences infarct severity', wrong:['The patient with normal oxygenation','Both are at equal risk regardless of oxygenation','Oxygenation status has no bearing on infarct severity per the material']},
+  {q:'An infarct becomes secondarily colonized by bacteria and progresses to abscess formation. This best exemplifies', correct:'A septic infarction', wrong:['A white infarction','A red infarction','Reactive hyperemia']},
+  {q:'Why can occlusion of the ovarian vein alone (without arterial occlusion) still cause infarction of the ovary?', correct:'Because the ovary has a single venous outflow, so venous thrombosis alone can produce infarction, unlike organs with dual venous drainage', wrong:['Venous occlusion alone can never cause infarction in any organ','The ovary has no arterial supply, so only venous factors matter','Infarction only occurs from combined arterial and venous occlusion']},
+  {q:'A patient has elevated troponin, chest pain, but no ECG changes and no imaging performed. Does this meet the stated diagnostic criteria for MI?', correct:'Yes \u2014 biomarker rise/fall plus at least one supporting criterion (here, ischemic symptoms) is sufficient', wrong:['No \u2014 ECG changes are mandatory in all cases','No \u2014 imaging is mandatory in all cases','No \u2014 angiography is mandatory in all cases']},
+  {q:'Why might a plaque with a large lipid core and thin fibrous cap be more prone to rupture than a fibrocalcific plaque?', correct:'A thin fibrous cap over a large necrotic lipid core is structurally less stable than a collagen-rich, heavily calcified plaque', wrong:['Fibrocalcific plaques always have larger lipid cores','Lipid-core plaques are structurally identical to fibrocalcific plaques','Rupture risk is unrelated to plaque composition per the material']},
+  {q:'A patient has multiple coronary risk factors (smoking, diabetes, obesity) but a completely normal coronary angiogram. What can be concluded?', correct:'The patient has risk factors for coronary artery disease but no current angiographically demonstrable atheromatous disease', wrong:['The patient definitely has occult coronary artery disease that angiography missed','Risk factors are irrelevant if angiography is normal','The patient has had a myocardial infarction']},
+  {q:'Considering that a ruptured plaque\u2019s "luminal thrombus communicates with the underlying necrotic core," which Virchow\u2019s triad elements are most directly illustrated?', correct:'Endothelial/vascular injury (plaque rupture exposing the core) triggering local thrombosis', wrong:['Hypercoagulability alone, unrelated to vessel wall change','Altered blood flow alone, unrelated to vessel wall change','None of Virchow\u2019s triad applies to coronary plaque rupture']},
+  {q:'A patient develops pulmonary oedema after inhaling high concentrations of supplemental oxygen during prolonged mechanical ventilation. Which category and mechanism apply?', correct:'Non-cardiogenic (ARDS-type) pulmonary oedema, from damage to the alveolar-capillary membrane', wrong:['Cardiogenic pulmonary oedema, from elevated wedge pressure','Pulmonary oedema from hypoalbuminemia','Re-expansion pulmonary oedema']},
+  {q:'Why does the material separate "increased pulmonary wedge pressure" (cardiogenic) from "damaged alveolar-capillary membrane" (non-cardiogenic) as distinct pathways?', correct:'Because pulmonary oedema can result either from a hydrostatic pressure problem (cardiogenic) or a membrane permeability problem (non-cardiogenic), requiring different underlying pathology', wrong:['Because only cardiogenic pulmonary oedema is a real clinical entity','Because both pathways always occur together in every patient','Because wedge pressure and membrane integrity are the same measurement']},
+  {q:'A patient undergoes rapid drainage of 2 litres of pleural fluid and later develops localized pulmonary oedema in the re-expanded lung. What best explains this?', correct:'Re-expansion pulmonary oedema, related to rapid re-expansion of previously collapsed lung tissue after large-volume pleural fluid removal', wrong:['Cardiogenic pulmonary oedema from elevated wedge pressure','Pulmonary oedema from hypoalbuminemia','Narcotic-overdose pulmonary oedema']},
+  {q:'Why is the timing of onset (within about 2 hours of injection) a useful clue in narcotic-overdose pulmonary oedema, distinguishing it from cardiogenic causes?', correct:'It suggests a temporal link to the drug\u2019s direct toxic or hypoxic effect rather than a gradually developing haemodynamic overload as in heart failure', wrong:['Timing is irrelevant to distinguishing the two causes','Cardiogenic pulmonary oedema always develops within 2 hours as well','Narcotic-overdose pulmonary oedema always takes several days to develop']}
+]
+};
+let quizLevel = 'easy';
+let quizBank = quizBankByLevel[quizLevel];
+let quizOrder = quizBank.map((_,i)=>i);
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function renderQuiz(){
+  const quizArea = document.getElementById('quizArea');
+  if(quizIndex >= quizOrder.length){
+    document.getElementById('quizPos').textContent = 'Complete';
+    quizArea.innerHTML = `
+      <div class="quiz-summary">
+        <div class="big">${quizScore} / ${quizBank.length}</div>
+        <p>Questions answered correctly.</p>
+        <button class="quiz-restart" id="quizRestart">Play again</button>
+      </div>`;
+    document.getElementById('quizProgressBar').style.width = '100%';
+    document.getElementById('quizRestart').addEventListener('click', startQuiz);
+    return;
+  }
+  const item = quizBank[quizOrder[quizIndex]];
+  const opts = shuffleArr([{t:item.correct,ok:true}, ...item.wrong.map(w=>({t:w,ok:false}))]);
+  quizAnswered = false;
+  document.getElementById('quizPos').textContent = `Question ${quizIndex+1} / ${quizBank.length}`;
+  document.getElementById('quizScore').textContent = `Score: ${quizScore}`;
+  document.getElementById('quizProgressBar').style.width = `${(quizIndex/quizBank.length)*100}%`;
+
+  quizArea.innerHTML = `
+    <div class="quiz-box">
+      <div class="quiz-qnum">Q${quizIndex+1}</div>
+      <div class="quiz-q">${item.q}</div>
+      <div class="quiz-opts" id="quizOpts"></div>
+      <div class="quiz-foot">
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next" id="quizNextBtn" disabled>Next question</button>
+      </div>
+    </div>`;
+
+  const optsWrap = document.getElementById('quizOpts');
+  opts.forEach(o=>{
+    const b = document.createElement('button');
+    b.className='quiz-opt';
+    b.textContent = o.t;
+    b.addEventListener('click',()=>{
+      if(quizAnswered) return;
+      quizAnswered = true;
+      document.querySelectorAll('.quiz-opt').forEach(el=>el.disabled=true);
+      const feedback = document.getElementById('quizFeedback');
+      if(o.ok){
+        b.classList.add('correct');
+        quizScore++;
+        feedback.textContent = 'Correct.';
+        feedback.className = 'quiz-feedback ok';
+      } else {
+        b.classList.add('wrong');
+        feedback.textContent = 'Not quite.';
+        feedback.className = 'quiz-feedback bad';
+        [...optsWrap.children].forEach(el=>{ if(el.textContent === item.correct) el.classList.add('correct'); });
+      }
+      document.getElementById('quizScore').textContent = `Score: ${quizScore}`;
+      document.getElementById('quizNextBtn').disabled = false;
+    });
+    optsWrap.appendChild(b);
+  });
+  document.getElementById('quizNextBtn').addEventListener('click',()=>{
+    quizIndex++;
+    renderQuiz();
+  });
+}
+
+function startQuiz(){
+  quizOrder = shuffleArr(quizBank.map((_,i)=>i));
+  quizIndex = 0;
+  quizScore = 0;
+  renderQuiz();
+}
+document.querySelectorAll('#quizLevelTabs .level-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#quizLevelTabs .level-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    quizLevel = btn.dataset.level;
+    quizBank = quizBankByLevel[quizLevel];
+    startQuiz();
+  });
+});
+startQuiz();
+
+</script>
+</body>
+</html>
